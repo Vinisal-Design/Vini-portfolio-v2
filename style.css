@@ -546,7 +546,7 @@ strong { font-weight: 600; }
 .section-header { margin-bottom: var(--s-4xl); }
 .section-header-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: var(--s-2xl);
   align-items: end;
 }
@@ -556,6 +556,8 @@ strong { font-weight: 600; }
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 .section-desc {
   font-size: var(--fs-body-lg);
@@ -923,7 +925,7 @@ strong { font-weight: 600; }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: var(--s-4xl);
 }
 
@@ -934,7 +936,7 @@ strong { font-weight: 600; }
   letter-spacing: -0.03em;
   line-height: 1.05;
 }
-.about-title-line { display: block; }
+.about-title-line { display: block; word-break: keep-all; overflow-wrap: normal; }
 
 .heart-icon {
   display: inline-block;
