@@ -148,23 +148,42 @@ function initSplitText() {
   const elements = document.querySelectorAll('[data-split-chars]');
 
   elements.forEach(el => {
-    const text = el.textContent;
+    const text = el.textContent.trim();
     el.innerHTML = '';
     el.setAttribute('aria-label', text);
 
-    // Handle nested elements (like heart icon)
-    const originalHTML = el.dataset.originalHtml;
-
+    // Split into words, wrap each word in a span to prevent mid-word breaks
+    const words = text.split(/\s+/);
     let charIndex = 0;
-    for (const char of text) {
-      const span = document.createElement('span');
-      span.className = 'char';
-      span.style.setProperty('--char-i', charIndex);
-      span.textContent = char === ' ' ? '\u00A0' : char;
-      span.setAttribute('aria-hidden', 'true');
-      el.appendChild(span);
-      charIndex++;
-    }
+
+    words.forEach((word, wordIdx) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.className = 'word';
+      wordSpan.setAttribute('aria-hidden', 'true');
+
+      for (const char of word) {
+        const charSpan = document.createElement('span');
+        charSpan.className = 'char';
+        charSpan.style.setProperty('--char-i', charIndex);
+        charSpan.textContent = char;
+        charSpan.setAttribute('aria-hidden', 'true');
+        wordSpan.appendChild(charSpan);
+        charIndex++;
+      }
+
+      el.appendChild(wordSpan);
+
+      // Add space between words (not after last)
+      if (wordIdx < words.length - 1) {
+        const space = document.createElement('span');
+        space.className = 'char';
+        space.style.setProperty('--char-i', charIndex);
+        space.textContent = '\u00A0';
+        space.setAttribute('aria-hidden', 'true');
+        el.appendChild(space);
+        charIndex++;
+      }
+    });
   });
 
   // Observe and animate
@@ -175,7 +194,7 @@ function initSplitText() {
         chars.forEach((char, i) => {
           setTimeout(() => {
             char.classList.add('revealed');
-          }, i * 30); // 30ms stagger per char
+          }, i * 30);
         });
         observer.unobserve(entry.target);
       }
