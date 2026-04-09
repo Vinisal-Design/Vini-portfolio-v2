@@ -563,6 +563,8 @@ strong { font-weight: 600; }
   color: var(--c-text-muted);
   line-height: 1.6;
   max-width: 480px;
+  align-self: end;
+  padding-bottom: 0.15em;
 }
 
 @media (max-width: 768px) {
