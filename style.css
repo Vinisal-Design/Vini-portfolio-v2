@@ -556,9 +556,8 @@ strong { font-weight: 600; }
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  word-break: keep-all;
-  overflow-wrap: normal;
 }
+.section-title-line { display: block; }
 .section-desc {
   font-size: var(--fs-body-lg);
   color: var(--c-text-muted);
