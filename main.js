@@ -43,15 +43,32 @@ requestAnimationFrame(updateScroll);
 // ── CUSTOM CURSOR ──
 const cursor = document.getElementById('cursor');
 const cursorLabel = document.getElementById('cursorLabel');
-let cursorX = 0, cursorY = 0;
-let targetCursorX = 0, targetCursorY = 0;
+let cursorX = -100, cursorY = -100;
+let targetCursorX = -100, targetCursorY = -100;
+let cursorHasMoved = false;
 
 function initCursor() {
-  if (window.matchMedia('(hover: none)').matches) return;
+  if (window.matchMedia('(hover: none)').matches) {
+    document.body.style.cursor = 'auto';
+    document.querySelectorAll('a, button').forEach(el => { el.style.cursor = 'pointer'; });
+    if (cursor) cursor.style.display = 'none';
+    return;
+  }
+
+  if (!cursor || !cursorLabel) return;
+
+  // Hide custom cursor until first mouse move to prevent stuck-at-corner
+  cursor.style.opacity = '0';
 
   document.addEventListener('mousemove', (e) => {
     targetCursorX = e.clientX;
     targetCursorY = e.clientY;
+    if (!cursorHasMoved) {
+      cursorHasMoved = true;
+      cursorX = targetCursorX;
+      cursorY = targetCursorY;
+      cursor.style.opacity = '1';
+    }
   });
 
   // Cursor states
