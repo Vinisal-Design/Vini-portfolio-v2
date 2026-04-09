@@ -1024,7 +1024,6 @@ strong { font-weight: 600; }
 .about-stat {
   display: flex;
   flex-direction: column;
-  gap: var(--s-xs);
 }
 .about-stat-number {
   font-family: var(--f-display);
@@ -1032,16 +1031,20 @@ strong { font-weight: 600; }
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--c-text);
+  display: inline;
 }
 .about-stat-plus {
   font-family: var(--f-display);
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   font-weight: 700;
+  letter-spacing: -0.03em;
   color: var(--c-accent);
+  display: inline;
 }
 .about-stat-label {
   font-size: var(--fs-small);
   color: var(--c-text-muted);
+  margin-top: 0.25rem;
 }
 
 .about-photo-col {
