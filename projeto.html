@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto | Vinicius Gayer</title>
+  <meta name="description" content="Projeto de Vinicius Gayer — Designer Gráfico Full-Range.">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-theme="dark">
+
+<!-- ═══ NOISE TEXTURE OVERLAY ═══ -->
+<div class="noise"></div>
+
+<!-- ═══ NAV MINIMAL ═══ -->
+<header class="nav" id="nav">
+  <a href="/" class="nav-logo" aria-label="Vinicius Gayer">
+    <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="nav-logo-img">
+  </a>
+</header>
+
+<main class="page-project-detail" id="projectDetail">
+  <!-- Populated by JS -->
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">
+        <img src="/profile/logo.svg" alt="Vinicius Gayer" class="footer-logo-img">
+      </a>
+      <span class="footer-copy">&copy; 2026 Vinicius Gayer. Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  async function loadProject() {
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+
+    if (!slug) {
+      window.location.href = '/projetos.html';
+      return;
+    }
+
+    const res = await fetch('/data/portfolio-data.json');
+    const data = await res.json();
+    const project = data.projects.find(p => p.slug === slug);
+
+    if (!project) {
+      document.getElementById('projectDetail').innerHTML = `
+        <div class="container" style="padding-top: 8rem;">
+          <a href="/" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+            <span>Home</span>
+          </a>
+          <h1 class="section-title" style="margin-top: 2rem;">Projeto não encontrado</h1>
+          <p style="color: var(--c-text-muted); margin-top: 1rem;">O projeto que você procura não existe ou foi removido.</p>
+        </div>
+      `;
+      return;
+    }
+
+    document.title = `${project.title} | Vinicius Gayer`;
+    document.querySelector('meta[name="description"]').content = project.subtitle;
+
+    const tagsHTML = project.tags
+      .slice(0, 3)
+      .map(t => `<span class="tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`)
+      .join('');
+
+    const coverHTML = project.cover
+      ? `<div class="project-cover"><img src="${project.cover}" alt="${project.coverAlt}" loading="lazy"></div>`
+      : `<div class="project-cover project-placeholder"><span>Imagem em breve</span></div>`;
+
+    const imagesHTML = project.images && project.images.length > 0
+      ? project.images.map(img => `
+          <div class="project-gallery-item">
+            <img src="${img}" alt="${project.title}" loading="lazy">
+          </div>
+        `).join('')
+      : `
+          <div class="project-gallery-item project-placeholder"><span>Imagem em breve</span></div>
+          <div class="project-gallery-item project-placeholder"><span>Imagem em breve</span></div>
+          <div class="project-gallery-item project-placeholder"><span>Imagem em breve</span></div>
+        `;
+
+    document.getElementById('projectDetail').innerHTML = `
+      <div class="container project-detail-container">
+
+        <a href="javascript:void(0)" class="back-link" id="backBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+          <span>Voltar</span>
+        </a>
+
+        <div class="project-hero">
+          <div class="project-hero-info">
+            <div class="project-tags">${tagsHTML}</div>
+            <h1 class="project-detail-title">${project.title}</h1>
+            <p class="project-detail-subtitle">${project.subtitle}</p>
+            <span class="project-detail-year">${project.year}</span>
+          </div>
+        </div>
+
+        ${coverHTML}
+
+        <div class="project-meta">
+          <div class="project-meta-item">
+            <span class="project-meta-label">Cliente</span>
+            <span class="project-meta-value">${project.client}</span>
+          </div>
+          <div class="project-meta-item">
+            <span class="project-meta-label">Função</span>
+            <span class="project-meta-value">${project.role}</span>
+          </div>
+        </div>
+
+        <div class="project-gallery">
+          ${imagesHTML}
+        </div>
+
+      </div>
+    `;
+
+    // Back button behavior
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/';
+      }
+    });
+
+    // Fade in
+    requestAnimationFrame(() => {
+      document.querySelector('.project-detail-container').classList.add('visible');
+    });
+  }
+
+  loadProject();
+</script>
+</body>
+</html>

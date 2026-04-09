@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos os projetos | Vinicius Gayer</title>
+  <meta name="description" content="Projetos selecionados de Vinicius Gayer — Design Gráfico, Branding, Social Media e mais.">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-theme="dark">
+
+<!-- ═══ NOISE TEXTURE OVERLAY ═══ -->
+<div class="noise"></div>
+
+<!-- ═══ NAV MINIMAL ═══ -->
+<header class="nav" id="nav">
+  <a href="/" class="nav-logo" aria-label="Vinicius Gayer">
+    <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="nav-logo-img">
+  </a>
+</header>
+
+<main class="page-projects">
+  <div class="container">
+
+    <a href="/" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+      <span>Home</span>
+    </a>
+
+    <div class="section-header">
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Portfolio</span>
+      </div>
+      <h1 class="section-title">
+        <span class="section-title-line">Todos os</span>
+        <span class="section-title-line">projetos</span>
+      </h1>
+    </div>
+
+    <div class="work-grid" id="projectsGrid">
+      <!-- Populated by JS -->
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">
+        <img src="/profile/logo.svg" alt="Vinicius Gayer" class="footer-logo-img">
+      </a>
+      <span class="footer-copy">&copy; 2026 Vinicius Gayer. Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  async function loadProjects() {
+    const res = await fetch('/data/portfolio-data.json');
+    const data = await res.json();
+    const grid = document.getElementById('projectsGrid');
+
+    data.projects.forEach((project, i) => {
+      const isReverse = i % 2 !== 0;
+      const article = document.createElement('article');
+      article.className = `work-case${isReverse ? ' reverse' : ''}`;
+
+      const tagsHTML = project.tags
+        .slice(0, 2)
+        .map(t => `<span class="tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`)
+        .join('');
+
+      article.innerHTML = `
+        <a href="/projeto.html?slug=${project.slug}" class="work-case-link">
+          <div class="work-case-media">
+            <div class="work-case-img">
+              <img src="${project.cover}" alt="${project.coverAlt}" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">${tagsHTML}</div>
+            <h3 class="work-case-title">${project.title}</h3>
+            <p class="work-case-desc">${project.subtitle}</p>
+            <span class="work-case-year">${project.year}</span>
+          </div>
+        </a>
+      `;
+      grid.appendChild(article);
+    });
+  }
+
+  loadProjects();
+</script>
+</body>
+</html>
