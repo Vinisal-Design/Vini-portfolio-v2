@@ -228,6 +228,31 @@
         "/projects/fidelize-doctor/08-mockup.png",
         "/projects/fidelize-doctor/09-aplicacao.png"
       ]
+    },
+    {
+      "id": "forhealth-brand-guide",
+      "slug": "forhealth-brand-guide",
+      "title": "For Health CSC \u2014 Brand Guide",
+      "subtitle": "Identidade visual completa para empresa de tecnologia em sa\u00fade",
+      "category": "Branding",
+      "year": "2026",
+      "client": "For Health CSC",
+      "role": "Designer de Marca",
+      "cover": "/projects/forhealth-brand-guide/images/08_fachada.jpg",
+      "coverAlt": "Mockup de fachada For Health CSC",
+      "tags": ["branding", "identidade visual", "brand guide"],
+      "featured": true,
+      "images": [
+        "/projects/forhealth-brand-guide/images/01_capa.jpg",
+        "/projects/forhealth-brand-guide/images/02_conceito.jpg",
+        "/projects/forhealth-brand-guide/images/03_logo-dark.jpg",
+        "/projects/forhealth-brand-guide/images/04_logo-light.jpg",
+        "/projects/forhealth-brand-guide/images/05_tipografia.jpg",
+        "/projects/forhealth-brand-guide/images/06_cores.jpg",
+        "/projects/forhealth-brand-guide/images/07_stationery.jpg",
+        "/projects/forhealth-brand-guide/images/08_fachada.jpg",
+        "/projects/forhealth-brand-guide/images/09_encerramento.jpg"
+      ]
     }
   ],
 
@@ -263,7 +288,16 @@
     "/projects/fidelize-doctor/06-cores.png",
     "/projects/fidelize-doctor/07-tipografia.png",
     "/projects/fidelize-doctor/08-mockup.png",
-    "/projects/fidelize-doctor/09-aplicacao.png"
+    "/projects/fidelize-doctor/09-aplicacao.png",
+    "/projects/forhealth-brand-guide/images/01_capa.jpg",
+    "/projects/forhealth-brand-guide/images/02_conceito.jpg",
+    "/projects/forhealth-brand-guide/images/03_logo-dark.jpg",
+    "/projects/forhealth-brand-guide/images/04_logo-light.jpg",
+    "/projects/forhealth-brand-guide/images/05_tipografia.jpg",
+    "/projects/forhealth-brand-guide/images/06_cores.jpg",
+    "/projects/forhealth-brand-guide/images/07_stationery.jpg",
+    "/projects/forhealth-brand-guide/images/08_fachada.jpg",
+    "/projects/forhealth-brand-guide/images/09_encerramento.jpg"
   ],
 
   "footer": {
