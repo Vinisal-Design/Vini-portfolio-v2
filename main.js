@@ -359,6 +359,30 @@ function initSmoothAnchors() {
 
 
 // ── INIT ALL ──
+// ── WORK FILTERS ──
+function initWorkFilters() {
+  const btns = document.querySelectorAll('.work-filter');
+  const cases = document.querySelectorAll('.work-case');
+  if (!btns.length) return;
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cases.forEach(c => {
+        if (filter === 'all' || c.dataset.category === filter) {
+          c.classList.remove('hidden');
+        } else {
+          c.classList.add('hidden');
+        }
+      });
+    });
+  });
+}
+
 function initAnimations() {
   initCursor();
   initMenu();
@@ -370,6 +394,7 @@ function initAnimations() {
   initCounters();
   initAwardHover();
   initSmoothAnchors();
+  initWorkFilters();
   requestAnimationFrame(updateScrollProgress);
 }
 
