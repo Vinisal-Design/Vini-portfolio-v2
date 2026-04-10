@@ -133,13 +133,23 @@
       "year": "2023 - 2026",
       "client": "A Fórmula (Contratado)",
       "role": "Designer Principal",
-      "cover": "/projects/a-formula/branding/banner-fachada.jpg",
-      "coverAlt": "Mockup de fachada A Fórmula",
-      "tags": ["branding", "identidade visual", "PDV", "mockup"],
+      "cover": "/projects/a-formula/branding/01_capa.jpg",
+      "coverAlt": "Banner institucional A F\u00f3rmula",
+      "tags": ["branding", "identidade visual", "PDV", "mockup", "rebranding"],
       "featured": true,
       "images": [
-        "/projects/a-formula/branding/banner-fachada.jpg",
-        "/projects/a-formula/branding/tenda-mockup.jpg"
+        "/projects/a-formula/branding/01_capa.jpg",
+        "/projects/a-formula/branding/02_stand-evento.jpg",
+        "/projects/a-formula/branding/03_tenda-promocional.jpg",
+        "/projects/a-formula/branding/04_rollup-institucional.jpg",
+        "/projects/a-formula/branding/05_cartao-visitas.jpg",
+        "/projects/a-formula/branding/06_bloco-notas.jpg",
+        "/projects/a-formula/branding/07_flyer-nutrishots.jpg",
+        "/projects/a-formula/branding/08_display-balcao.jpg",
+        "/projects/a-formula/branding/09_calendario.jpg",
+        "/projects/a-formula/branding/10_vale-presente.jpg",
+        "/projects/a-formula/branding/11_cubo-institucional.jpg",
+        "/projects/a-formula/branding/12_cracha-evento.jpg"
       ]
     },
     {
