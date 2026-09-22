@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "source": "https://vinigayerportfolio.vercel.app/",
+    "repo": "https://github.com/Vinisal-Design/portfolio-designer",
+    "extracted": "2026-04-09",
+    "note": "Dados completos sem copy — para adaptação em novo layout"
+  },
+
+  "identity": {
+    "name": "Vinicius Gayer",
+    "firstName": "Vinicius",
+    "lastName": "Gayer",
+    "role": "Brand Designer",
+    "location": "São Paulo, BR",
+    "email": "viniciusal60@gmail.com",
+    "education": "Publicitário formado pela Cásper Líbero"
+  },
+
+  "seo": {
+    "metaTitle": "Vinicius Gayer | Designer Gráfico Full-Range + IA",
+    "metaDescription": "Portfolio de Vinicius Gayer — Designer Gráfico Full-Range. Branding, identidade visual, social media, embalagens, sites, apps e produção com IA generativa."
+  },
+
+  "assets": {
+    "logo": "/profile/logo.svg",
+    "profilePhoto": "/profile/foto.jpg",
+    "symbol": "/profile/simbolo.svg",
+    "heroImage": "/images/hero-vinicius.jpg",
+    "favicon": "/favicon.ico",
+    "baseUrl": "https://vinigayerportfolio.vercel.app"
+  },
+
+  "socialLinks": [
+    {
+      "platform": "instagram",
+      "handle": "@vinisal_",
+      "url": "https://www.instagram.com/vinisal_/"
+    },
+    {
+      "platform": "linkedin",
+      "handle": "Vinicius Gayer",
+      "url": "https://www.linkedin.com/in/vinicius-gayer-a8008813a/"
+    },
+    {
+      "platform": "behance",
+      "handle": "vinisal_designer",
+      "url": "https://www.behance.net/vinisal_designer"
+    },
+    {
+      "platform": "email",
+      "handle": "viniciusal60@gmail.com",
+      "url": "mailto:viniciusal60@gmail.com"
+    }
+  ],
+
+  "stats": [
+    { "value": 120, "label": "Unidades" },
+    { "value": 5, "label": "Anos exp." },
+    { "value": 50, "label": "Projetos" }
+  ],
+
+  "statsAlt": [
+    { "value": "+4", "label": "Anos de experiência" },
+    { "value": "300+", "label": "Peças visuais entregues" },
+    { "value": "∞", "label": "Do post ao app — todas as frentes" }
+  ],
+
+  "navigation": [
+    { "label": "Home", "href": "/" },
+    { "label": "Projetos", "href": "/#work" },
+    { "label": "Sobre", "href": "/#about" },
+    { "label": "Contato", "href": "/#contact" }
+  ],
+
+  "skills": [
+    { "name": "Branding", "level": "Expert" },
+    { "name": "Identidade Visual", "level": "Expert" },
+    { "name": "Design de Embalagens", "level": "Expert" },
+    { "name": "Social Media Design", "level": "Advanced" },
+    { "name": "UI/UX Design", "level": "Advanced" },
+    { "name": "Motion Design", "level": "Intermediate" },
+    { "name": "Adobe Illustrator", "level": "Expert" },
+    { "name": "Adobe Photoshop", "level": "Expert" },
+    { "name": "Adobe InDesign", "level": "Expert" },
+    { "name": "Adobe Premiere Pro", "level": "Advanced" },
+    { "name": "Imagens com IA (Midjourney, DALL-E)", "level": "Expert" },
+    { "name": "Vídeos com IA", "level": "Advanced" },
+    { "name": "Landing Pages & Sites com IA", "level": "Expert" },
+    { "name": "Aplicativos & Dashboards com IA", "level": "Advanced" },
+    { "name": "Claude Code", "level": "Advanced" },
+    { "name": "Ferramentas Generativas (ChatGPT, Gemini)", "level": "Expert" },
+    { "name": "Criação de Sites (Nuvemshop)", "level": "Expert" },
+    { "name": "Brand Strategy", "level": "Advanced" },
+    { "name": "Gestão de Projetos", "level": "Advanced" }
+  ],
+
+  "clients": [
+    {
+      "name": "Kalon",
+      "url": "https://kalonoficial.com",
+      "logo": "/clients/kalon.svg"
+    },
+    {
+      "name": "Arcana Seguros",
+      "url": "https://arcanaseguros.com.br",
+      "logo": "/clients/arcana.svg"
+    },
+    {
+      "name": "FRX Sneakers",
+      "url": "https://frxsneakers.com.br",
+      "logo": "/clients/frx.svg"
+    }
+  ],
+
+  "projectCategories": [
+    { "name": "Todos", "slug": "todos" },
+    { "name": "Branding", "slug": "branding" },
+    { "name": "Identidade Visual", "slug": "identidade-visual" },
+    { "name": "Embalagem", "slug": "embalagem" },
+    { "name": "R\u00f3tulos", "slug": "rotulos" },
+    { "name": "V\u00eddeo", "slug": "video" }
+  ],
+
+  "projects": [
+    {
+      "id": "a-formula-branding",
+      "slug": "a-formula-branding",
+      "title": "A Fórmula — Branding",
+      "subtitle": "Identidade visual e materiais institucionais",
+      "category": "Branding",
+      "year": "2023 - 2026",
+      "client": "A Fórmula (Contratado)",
+      "role": "Designer Principal",
+      "cover": "/projects/a-formula/branding/01_capa.jpg",
+      "coverAlt": "Banner institucional A F\u00f3rmula",
+      "tags": ["branding", "identidade visual", "PDV", "mockup", "rebranding"],
+      "featured": true,
+      "images": [
+        "/projects/a-formula/branding/01_capa.jpg",
+        "/projects/a-formula/branding/02_stand-evento.jpg",
+        "/projects/a-formula/branding/03_tenda-promocional.jpg",
+        "/projects/a-formula/branding/04_rollup-institucional.jpg",
+        "/projects/a-formula/branding/05_cartao-visitas.jpg",
+        "/projects/a-formula/branding/06_bloco-notas.jpg",
+        "/projects/a-formula/branding/07_flyer-nutrishots.jpg",
+        "/projects/a-formula/branding/08_display-balcao.jpg",
+        "/projects/a-formula/branding/09_calendario.jpg",
+        "/projects/a-formula/branding/10_vale-presente.jpg",
+        "/projects/a-formula/branding/11_cubo-institucional.jpg",
+        "/projects/a-formula/branding/12_cracha-evento.jpg"
+      ]
+    },
+    {
+      "id": "a-formula-rotulos",
+      "slug": "a-formula-rotulos",
+      "title": "A Fórmula — Linha Premium",
+      "subtitle": "Rótulos e embalagens premium",
+      "category": "Rótulos",
+      "year": "2024 - 2026",
+      "client": "A Fórmula Nutrition",
+      "role": "Designer de Embalagens",
+      "cover": "/projects/a-formula/capa.jpg",
+      "coverAlt": "Linha premium de suplementos A Fórmula",
+      "tags": ["rótulos", "embalagem", "premium", "suplementos"],
+      "featured": true,
+      "images": [
+        "/projects/a-formula/capa.jpg",
+        "/projects/a-formula/rotulos/creatina-caramelo.jpg",
+        "/projects/a-formula/rotulos/prancheta-conceito.jpg",
+        "/projects/a-formula/rotulos-grid/nutri-hair.jpg",
+        "/projects/a-formula/rotulos-grid/omega-dha.jpg",
+        "/projects/a-formula/rotulos-grid/produto-01.jpg",
+        "/projects/a-formula/rotulos-grid/produto-02.jpg",
+        "/projects/a-formula/rotulos-grid/produto-03.jpg"
+      ]
+    },
+    {
+      "id": "fidelize-doctor",
+      "slug": "fidelize-doctor",
+      "title": "Fidelize Doctor",
+      "subtitle": "Identidade Visual Completa",
+      "category": "Branding",
+      "year": "2024",
+      "client": "Fidelize Doctor",
+      "role": "Designer de Marca",
+      "cover": "/projects/fidelize-doctor/capa.jpg",
+      "coverAlt": "Logo Fidelize Doctor",
+      "tags": ["branding", "logo", "identidade visual"],
+      "featured": true,
+      "images": [
+        "/projects/fidelize-doctor/capa.jpg",
+        "/projects/fidelize-doctor/02-conceito.jpg",
+        "/projects/fidelize-doctor/03-simbolo.jpg",
+        "/projects/fidelize-doctor/04-pb.jpg",
+        "/projects/fidelize-doctor/05-logo-claro.jpg",
+        "/projects/fidelize-doctor/06-cores.jpg",
+        "/projects/fidelize-doctor/07-tipografia.jpg",
+        "/projects/fidelize-doctor/08-mockup.jpg",
+        "/projects/fidelize-doctor/09-aplicacao.jpg"
+      ]
+    },
+    {
+      "id": "forhealth-brand-guide",
+      "slug": "forhealth-brand-guide",
+      "title": "For Health CSC \u2014 Brand Guide",
+      "subtitle": "Identidade visual completa para empresa de tecnologia em sa\u00fade",
+      "category": "Branding",
+      "year": "2026",
+      "client": "For Health CSC",
+      "role": "Designer de Marca",
+      "cover": "/projects/forhealth-brand-guide/images/08_fachada.jpg",
+      "coverAlt": "Mockup de fachada For Health CSC",
+      "tags": ["branding", "identidade visual", "brand guide"],
+      "featured": true,
+      "images": [
+        "/projects/forhealth-brand-guide/images/01_capa.jpg",
+        "/projects/forhealth-brand-guide/images/02_conceito.jpg",
+        "/projects/forhealth-brand-guide/images/03_logo-dark.jpg",
+        "/projects/forhealth-brand-guide/images/04_logo-light.jpg",
+        "/projects/forhealth-brand-guide/images/05_tipografia.jpg",
+        "/projects/forhealth-brand-guide/images/06_cores.jpg",
+        "/projects/forhealth-brand-guide/images/07_stationery.jpg",
+        "/projects/forhealth-brand-guide/images/08_fachada.jpg",
+        "/projects/forhealth-brand-guide/images/09_encerramento.jpg"
+      ]
+    },
+    {
+      "id": "a-formula-ia",
+      "slug": "a-formula-ia",
+      "title": "A F\u00f3rmula \u2014 Produ\u00e7\u00e3o com IA",
+      "subtitle": "Imagens e v\u00eddeos de produto gerados com intelig\u00eancia artificial",
+      "category": "Branding",
+      "year": "2025 - 2026",
+      "client": "A F\u00f3rmula Nutrition",
+      "role": "Designer + IA Generativa",
+      "cover": "/projects/a-formula-ia/images/01_capa.jpg",
+      "coverAlt": "Creatina Caramelo \u2014 imagem gerada com IA",
+      "tags": ["IA", "v\u00eddeo", "branding", "packaging"],
+      "featured": true,
+      "images": [
+        "/projects/a-formula-ia/images/01_capa.jpg",
+        "/projects/a-formula-ia/images/02_omega3.jpg",
+        "/projects/a-formula-ia/images/03_omega-dha.jpg",
+        "/projects/a-formula-ia/images/04_creatina-sunset.jpg",
+        "/projects/a-formula-ia/images/05_creatina-efervescente.jpg",
+        "/projects/a-formula-ia/images/06_creatina-bancada.jpg",
+        "/projects/a-formula-ia/images/08_creatina-vertical.jpg",
+        "/projects/a-formula-ia/images/09_formula-coffee.jpg",
+        "/projects/a-formula-ia/images/10_gummy-collagen.jpg",
+        "/projects/a-formula-ia/images/11_omega3-capsulas.png",
+        "/projects/a-formula-ia/images/12_omega3-mesa.png",
+        "/projects/a-formula-ia/images/13_creatina-caramelo-render.png"
+      ],
+      "videos": [
+        "/projects/a-formula-ia/videos/reels-dia-das-mulheres.mp4",
+        "/projects/a-formula-ia/videos/reels-performance-institucional.mp4"
+      ]
+    },
+    {
+      "id": "design-de-rotulos",
+      "slug": "design-de-rotulos",
+      "title": "A F\u00f3rmula \u2014 Design de R\u00f3tulos",
+      "subtitle": "R\u00f3tulos para linha de suplementos premium",
+      "category": "R\u00f3tulos",
+      "year": "2025",
+      "client": "A F\u00f3rmula Nutrition",
+      "role": "Designer de Embalagens",
+      "cover": "/projects/design-de-rotulos/images/01_capa.jpg",
+      "coverAlt": "R\u00f3tulo Creatina em Caramelo",
+      "tags": ["packaging", "branding", "IA"],
+      "featured": true,
+      "images": [
+        "/projects/design-de-rotulos/images/01_capa.jpg",
+        "/projects/design-de-rotulos/images/02_formula-coffee.jpg",
+        "/projects/design-de-rotulos/images/03_omega3.jpg",
+        "/projects/design-de-rotulos/images/04_gummy-collagen.jpg",
+        "/projects/design-de-rotulos/images/05_gummy-creatina.jpg",
+        "/projects/design-de-rotulos/images/06_nutri-hair-gum.jpg"
+      ]
+    }
+  ],
+
+  "allImagePaths": [
+    "/profile/logo.svg",
+    "/profile/foto.jpg",
+    "/profile/simbolo.svg",
+    "/images/hero-vinicius.jpg",
+    "/clients/kalon.svg",
+    "/clients/arcana.svg",
+    "/clients/frx.svg",
+    "/projects/a-formula/branding/banner-fachada.jpg",
+    "/projects/a-formula/branding/tenda-mockup.jpg",
+    "/projects/a-formula/capa.jpg",
+    "/projects/a-formula/rotulos/creatina-caramelo.jpg",
+    "/projects/a-formula/rotulos/prancheta-conceito.jpg",
+    "/projects/a-formula/rotulos-grid/nutri-hair.jpg",
+    "/projects/a-formula/rotulos-grid/omega-dha.jpg",
+    "/projects/a-formula/rotulos-grid/produto-01.jpg",
+    "/projects/a-formula/rotulos-grid/produto-02.jpg",
+    "/projects/a-formula/rotulos-grid/produto-03.jpg",
+    "/projects/fidelize-doctor/capa.jpg",
+    "/projects/fidelize-doctor/02-conceito.jpg",
+    "/projects/fidelize-doctor/03-simbolo.jpg",
+    "/projects/fidelize-doctor/04-pb.jpg",
+    "/projects/fidelize-doctor/05-logo-claro.jpg",
+    "/projects/fidelize-doctor/06-cores.jpg",
+    "/projects/fidelize-doctor/07-tipografia.jpg",
+    "/projects/fidelize-doctor/08-mockup.jpg",
+    "/projects/fidelize-doctor/09-aplicacao.jpg",
+    "/projects/forhealth-brand-guide/images/01_capa.jpg",
+    "/projects/forhealth-brand-guide/images/02_conceito.jpg",
+    "/projects/forhealth-brand-guide/images/03_logo-dark.jpg",
+    "/projects/forhealth-brand-guide/images/04_logo-light.jpg",
+    "/projects/forhealth-brand-guide/images/05_tipografia.jpg",
+    "/projects/forhealth-brand-guide/images/06_cores.jpg",
+    "/projects/forhealth-brand-guide/images/07_stationery.jpg",
+    "/projects/forhealth-brand-guide/images/08_fachada.jpg",
+    "/projects/forhealth-brand-guide/images/09_encerramento.jpg"
+  ],
+
+  "footer": {
+    "copyright": "© 2026 Vinícius Gayer. Todos os direitos reservados."
+  }
+}

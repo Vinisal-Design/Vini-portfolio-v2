@@ -1,0 +1,26 @@
+{
+  "title": "Brand Guide",
+  "slug": "forhealth-brand-guide",
+  "type": "Branding",
+  "description": "Brand guide completo para empresa de tecnologia em sa\u00fade \u2014 For Health CSC",
+  "year": "2026",
+  "tags": ["Branding", "Identidade Visual", "Brand Guide"],
+  "layout_position": 8,
+  "hero_image": "images/01_capa.jpg",
+  "images": [
+    { "file": "images/01_capa.jpg", "label": "Capa" },
+    { "file": "images/02_conceito.jpg", "label": "Conceito" },
+    { "file": "images/03_logo-dark.jpg", "label": "Logo fundo escuro" },
+    { "file": "images/04_logo-light.jpg", "label": "Logo fundo claro" },
+    { "file": "images/05_tipografia.jpg", "label": "Tipografia" },
+    { "file": "images/06_cores.jpg", "label": "Cores" },
+    { "file": "images/07_stationery.jpg", "label": "Stationery" },
+    { "file": "images/08_fachada.jpg", "label": "Fachada" },
+    { "file": "images/09_encerramento.jpg", "label": "Encerramento" }
+  ],
+  "meta": {
+    "client": "For Health CSC",
+    "created_at": "2026-04-10",
+    "obsidian_note": "forhealth-brand-guide.md"
+  }
+}

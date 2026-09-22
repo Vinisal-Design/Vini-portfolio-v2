@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinicius Gayer | Designer Gr&#225;fico Full-Range + IA</title>
+  <meta name="description" content="Portfolio de Vinicius Gayer &#8212; Designer Gr&#225;fico Full-Range. Branding, identidade visual, social media, embalagens, sites, apps e produ&#231;&#227;o com IA generativa.">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-theme="dark">
+
+<!-- ═══ PRELOADER ═══ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-text">
+      <span class="preloader-letter" style="--i:0">V</span>
+      <span class="preloader-letter" style="--i:1">G</span>
+    </div>
+    <div class="preloader-bar">
+      <div class="preloader-bar-fill" id="preloaderBar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CUSTOM CURSOR ═══ -->
+<div class="cursor" id="cursor">
+  <div class="cursor-circle"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-label" id="cursorLabel"></div>
+</div>
+
+<!-- ═══ SCROLL PROGRESS ═══ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ NOISE TEXTURE OVERLAY ═══ -->
+<div class="noise"></div>
+
+<!-- ═══ NAV — Blend Difference + Fullscreen Overlay ═══ -->
+<header class="nav" id="nav">
+  <a href="#" class="nav-logo" aria-label="Vinicius Gayer">
+    <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="nav-logo-img">
+  </a>
+
+  <div class="nav-status">
+    <span class="nav-status-dot"></span>
+    <span class="nav-status-text">Dispon&#237;vel para projetos</span>
+  </div>
+
+  <button class="nav-burger" id="navBurger" aria-label="Menu">
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+  </button>
+</header>
+
+<!-- ═══ FULLSCREEN MENU OVERLAY ═══ -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-bg"></div>
+  <nav class="menu-inner">
+    <div class="menu-links">
+      <a href="#hero" class="menu-link" data-index="01">
+        <span class="menu-link-label">Inicio</span>
+        <span class="menu-link-text">Inicio</span>
+      </a>
+      <a href="#work" class="menu-link" data-index="02">
+        <span class="menu-link-label">Portfolio</span>
+        <span class="menu-link-text">Trabalhos</span>
+      </a>
+      <a href="#about" class="menu-link" data-index="03">
+        <span class="menu-link-label">Sobre</span>
+        <span class="menu-link-text">Sobre mim</span>
+      </a>
+      <a href="#services" class="menu-link" data-index="04">
+        <span class="menu-link-label">Servi&#231;os</span>
+        <span class="menu-link-text">O que fa&#231;o</span>
+      </a>
+      <a href="#awards" class="menu-link" data-index="05">
+        <span class="menu-link-label">Sites</span>
+        <span class="menu-link-text">Sites desenvolvidos</span>
+      </a>
+      <a href="#contact" class="menu-link" data-index="06">
+        <span class="menu-link-label">Contato</span>
+        <span class="menu-link-text">Vamos conversar</span>
+      </a>
+    </div>
+    <div class="menu-footer">
+      <div class="menu-footer-col">
+        <span class="menu-footer-label">Social</span>
+        <a href="https://www.instagram.com/vinisal_/" target="_blank" rel="noopener noreferrer" class="menu-footer-link">Instagram</a>
+        <a href="https://www.behance.net/vinisal_designer" target="_blank" rel="noopener noreferrer" class="menu-footer-link">Behance</a>
+        <a href="https://www.linkedin.com/in/vinicius-gayer-a8008813a/" target="_blank" rel="noopener noreferrer" class="menu-footer-link">LinkedIn</a>
+      </div>
+      <div class="menu-footer-col">
+        <span class="menu-footer-label">Contato</span>
+        <a href="mailto:viniciusal60@gmail.com" class="menu-footer-link">viniciusal60@gmail.com</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- ═══ VERTICAL SIDE ELEMENTS ═══ -->
+<div class="side-left">
+  <span class="side-text">&copy; 2026</span>
+</div>
+<div class="side-right">
+  <a href="mailto:viniciusal60@gmail.com" class="side-text">viniciusal60@gmail.com</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: HERO — Cinematic Dark + Char Stagger + Morphing Pill
+     Fusion: hero-cinematic-webgl + char-stagger-entrance + purpose-pill-morph
+     DNA: Format-3 (dark authority) + eDesign (motion) + Noomo (cinematic)
+     ═══════════════════════════════════════════════════ -->
+<section class="section section-hero" id="hero" data-section-theme="dark">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-grid-lines"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text" data-reveal>Designer & Creative Developer</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="hero-title-line" data-split-chars>Criando</span>
+        <span class="hero-title-line" data-split-chars>experi&#234;ncias</span>
+        <span class="hero-title-line accent" data-split-chars>digitais</span>
+        <span class="hero-title-line" data-split-chars>memor&#225;veis</span>
+      </h1>
+
+      <div class="hero-pill" data-reveal>
+        <div class="hero-pill-inner">
+          <span class="hero-pill-word active">Design</span>
+          <span class="hero-pill-word">Branding</span>
+          <span class="hero-pill-word">UI/UX</span>
+          <span class="hero-pill-word">Web Dev</span>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <p class="hero-description" data-reveal>
+          Transformo marcas em experi&#234;ncias visuais que conectam, comunicam e convertem. Design com estrat&#233;gia, execu&#231;&#227;o com precis&#227;o.
+        </p>
+        <a href="#work" class="hero-cta" data-reveal data-cursor="explore">
+          <span class="hero-cta-text">Ver trabalhos</span>
+          <span class="hero-cta-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator" data-reveal>
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line">
+      <div class="scroll-line-fill"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: PORTFOLIO — Sticky Heading + Alternating Cases + 3D Tilt
+     Fusion: portfolio-sticky-heading + portfolio-alternating-casestudy + tilt-3d-hover
+           + project-card-blend + parallax-scroll-container
+     DNA: Format-3 (192rem heading) + eDesign (3D tilt) + Noomo (cinematic dark)
+     ═══════════════════════════════════════════════════ -->
+<section class="section section-work" id="work" data-section-theme="dark">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text" data-reveal>Portfolio</span>
+      </div>
+      <div class="section-header-row">
+        <h2 class="section-title">
+          <span class="section-title-line" data-split-chars>Trabalhos</span>
+          <span class="section-title-line" data-split-chars>selecionados</span>
+        </h2>
+        <p class="section-desc" data-reveal>Projetos que combinam estrat&#233;gia criativa com execu&#231;&#227;o t&#233;cnica impec&#225;vel.</p>
+      </div>
+    </div>
+
+    <!-- Marquee heading behind cards -->
+    <div class="work-marquee" aria-hidden="true">
+      <div class="work-marquee-track">
+        <span>Branding</span>
+        <span>&bull;</span>
+        <span>Identidade Visual</span>
+        <span>&bull;</span>
+        <span>Embalagem</span>
+        <span>&bull;</span>
+        <span>R&#243;tulos</span>
+        <span>&bull;</span>
+        <span>V&#237;deo</span>
+        <span>&bull;</span>
+        <span>IA Generativa</span>
+        <span>&bull;</span>
+        <span>Branding</span>
+        <span>&bull;</span>
+        <span>Identidade Visual</span>
+        <span>&bull;</span>
+        <span>Embalagem</span>
+        <span>&bull;</span>
+        <span>R&#243;tulos</span>
+        <span>&bull;</span>
+        <span>V&#237;deo</span>
+        <span>&bull;</span>
+        <span>IA Generativa</span>
+        <span>&bull;</span>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="work-filters" data-reveal>
+      <button class="work-filter active" data-filter="all">Todos</button>
+      <button class="work-filter" data-filter="branding">Branding</button>
+      <button class="work-filter" data-filter="packaging">Packaging</button>
+      <button class="work-filter" data-filter="ia">IA</button>
+    </div>
+
+    <div class="work-grid">
+
+      <!-- Case 1: A F&#243;rmula — Branding -->
+      <article class="work-case" data-cursor="view" data-category="branding">
+        <a href="/projeto.html?slug=a-formula-branding" class="work-case-link">
+          <div class="work-case-media" data-parallax="0.08">
+            <div class="work-case-img tilt-3d" data-tilt>
+              <img src="/projects/a-formula/branding/01_capa.jpg" alt="Rebranding premium A F&#243;rmula" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">
+              <span class="tag">Branding</span>
+              <span class="tag">Identidade Visual</span>
+            </div>
+            <h3 class="work-case-title" data-split-chars>A F&#243;rmula &#8212; Branding</h3>
+            <p class="work-case-desc" data-reveal>Identidade visual e materiais institucionais para rede com 120+ unidades.</p>
+            <span class="work-case-year">2023 &#8212; 2026</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Case 2: A F&#243;rmula — Linha Premium -->
+      <article class="work-case reverse" data-cursor="view" data-category="packaging">
+        <a href="/projeto.html?slug=a-formula-rotulos" class="work-case-link">
+          <div class="work-case-media" data-parallax="-0.06">
+            <div class="work-case-img tilt-3d" data-tilt>
+              <img src="/projects/a-formula/capa.jpg" alt="Linha premium de suplementos A F&#243;rmula" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">
+              <span class="tag">R&#243;tulos</span>
+              <span class="tag">Embalagem</span>
+            </div>
+            <h3 class="work-case-title" data-split-chars>A F&#243;rmula &#8212; Linha Premium</h3>
+            <p class="work-case-desc" data-reveal>R&#243;tulos e embalagens premium para linha pr&#243;pria de suplementos.</p>
+            <span class="work-case-year">2024 &#8212; 2026</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Case 3: Fidelize Doctor -->
+      <article class="work-case" data-cursor="view" data-category="branding">
+        <a href="/projeto.html?slug=fidelize-doctor" class="work-case-link">
+          <div class="work-case-media" data-parallax="0.08">
+            <div class="work-case-img tilt-3d" data-tilt>
+              <img src="/projects/fidelize-doctor/capa.jpg" alt="Logo Fidelize Doctor" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">
+              <span class="tag">Branding</span>
+              <span class="tag">Logo</span>
+            </div>
+            <h3 class="work-case-title" data-split-chars>Fidelize Doctor</h3>
+            <p class="work-case-desc" data-reveal>Identidade visual completa &#8212; logo, cores, tipografia e aplica&#231;&#245;es.</p>
+            <span class="work-case-year">2024</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Case 6: For Health CSC — Brand Guide -->
+      <article class="work-case reverse" data-cursor="view" data-category="branding">
+        <a href="/projeto.html?slug=forhealth-brand-guide" class="work-case-link">
+          <div class="work-case-media" data-parallax="-0.06">
+            <div class="work-case-img tilt-3d" data-tilt>
+              <img src="/projects/forhealth-brand-guide/images/08_fachada.jpg" alt="Mockup de fachada For Health CSC" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">
+              <span class="tag">Branding</span>
+              <span class="tag">Identidade Visual</span>
+              <span class="tag">Brand Guide</span>
+            </div>
+            <h3 class="work-case-title" data-split-chars>For Health CSC</h3>
+            <p class="work-case-desc" data-reveal>Brand guide completo para empresa de tecnologia em sa&#250;de.</p>
+            <span class="work-case-year">2026</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Case 5: A F&#243;rmula — Produ&#231;&#227;o com IA -->
+      <article class="work-case" data-cursor="view" data-category="ia">
+        <a href="/projeto.html?slug=a-formula-ia" class="work-case-link">
+          <div class="work-case-media" data-parallax="0.1">
+            <div class="work-case-img tilt-3d" data-tilt>
+              <img src="/projects/a-formula-ia/images/01_capa.jpg" alt="Creatina Caramelo &#8212; imagem gerada com IA" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">
+              <span class="tag">IA</span>
+              <span class="tag">V&#237;deo</span>
+              <span class="tag">Branding</span>
+            </div>
+            <h3 class="work-case-title" data-split-chars>Produ&#231;&#227;o com IA</h3>
+            <p class="work-case-desc" data-reveal>Imagens e v&#237;deos de produto gerados com intelig&#234;ncia artificial.</p>
+            <span class="work-case-year">2025 &#8212; 2026</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Case 8: A F&#243;rmula — Design de R&#243;tulos -->
+      <article class="work-case reverse" data-cursor="view" data-category="packaging">
+        <a href="/projeto.html?slug=design-de-rotulos" class="work-case-link">
+          <div class="work-case-media" data-parallax="-0.08">
+            <div class="work-case-img tilt-3d" data-tilt>
+              <img src="/projects/design-de-rotulos/images/01_capa.jpg" alt="R&#243;tulo Creatina em Caramelo" loading="lazy">
+              <div class="work-case-overlay"></div>
+            </div>
+          </div>
+          <div class="work-case-info">
+            <div class="work-case-tags">
+              <span class="tag">Packaging</span>
+              <span class="tag">Branding</span>
+              <span class="tag">IA</span>
+            </div>
+            <h3 class="work-case-title" data-split-chars>Design de R&#243;tulos</h3>
+            <p class="work-case-desc" data-reveal>R&#243;tulos para linha de suplementos premium &#8212; A F&#243;rmula Nutrition.</p>
+            <span class="work-case-year">2025</span>
+          </div>
+        </a>
+      </article>
+
+    </div>
+
+    <div class="work-cta-row" data-reveal>
+      <a href="/projetos.html" class="btn-outline" data-cursor="explore">
+        <span>Ver todos os projetos</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: ABOUT — Heart SVG + Split Text + Color Transition
+     Fusion: about-heart-video + split-text-scroll-reveal + section-color-change
+     DNA: eDesign (heart animation) + Laugon (dark refined) + Noomo (cinematic)
+     ═══════════════════════════════════════════════════ -->
+<section class="section section-about" id="about" data-section-theme="accent">
+  <div class="container">
+
+    <div class="section-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text" data-reveal>Sobre mim</span>
+    </div>
+
+    <h2 class="about-title">
+      <span class="about-title-line" data-split-chars>Estrat&#233;gia e</span>
+      <span class="about-title-line about-title-heart-line">
+        <span class="heart-icon">
+          <svg viewBox="0 0 79 68" fill="currentColor">
+            <path d="M39.5 14.9C29.3-8.7.2-3.2 0 24.1c-.1 15 13.8 20.7 23.1 26.7 9 5.8 15.4 13.8 16.4 17.2.9-3.3 8-11.5 16.3-17.4 9.1-6.4 23.2-11.6 23.1-26.6C78.7-3.4 49.3-7.6 39.5 14.9z"/>
+          </svg>
+        </span>
+        <span data-split-chars>em cada pixel</span>
+      </span>
+    </h2>
+
+    <div class="about-grid">
+      <div class="about-photo-col">
+        <div class="about-photo" data-reveal>
+          <img src="/profile/foto.jpg" alt="Vinicius Gayer" class="about-photo-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="about-content-col">
+        <p class="about-text large" data-reveal>
+          Sou <strong>Vinicius Gayer</strong>, designer gr&#225;fico e desenvolvedor criativo baseado em S&#227;o Paulo. H&#225; mais de 5 anos, transformo ideias em experi&#234;ncias digitais que importam.
+        </p>
+        <p class="about-text" data-reveal>
+          Acredito que bom design n&#227;o &#233; decora&#231;&#227;o &#8212; &#233; comunica&#231;&#227;o. Cada projeto &#233; uma oportunidade de criar algo que conecta pessoas com marcas de forma aut&#234;ntica e memor&#225;vel.
+        </p>
+        <p class="about-text" data-reveal>
+          Minha abordagem combina pensamento estrat&#233;gico com obsess&#227;o por detalhes visuais. Do conceito &#224; entrega, cada decis&#227;o &#233; intencional.
+        </p>
+
+        <div class="about-stats" data-reveal>
+          <div class="about-stat">
+            <div class="about-stat-value">
+              <span class="about-stat-plus">+</span><span class="about-stat-number" data-count="120">0</span>
+            </div>
+            <span class="about-stat-label">Unidades atendidas</span>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-value">
+              <span class="about-stat-plus">+</span><span class="about-stat-number" data-count="5">0</span>
+            </div>
+            <span class="about-stat-label">Anos de experi&#234;ncia</span>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-value">
+              <span class="about-stat-plus">+</span><span class="about-stat-number" data-count="300">0</span>
+            </div>
+            <span class="about-stat-label">Pe&#231;as visuais entregues</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4: SERVICES — Vertical Columns + Blend Difference
+     Fusion: services-vertical-columns + section-color-change
+     DNA: eDesign (vertical titles) + Avintiv (bold premium) + Format-3 (authority)
+     ═══════════════════════════════════════════════════ -->
+<section class="section section-services" id="services" data-section-theme="dark">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text" data-reveal>Servi&#231;os</span>
+      </div>
+      <div class="section-header-row">
+        <h2 class="section-title" data-split-chars>O que eu fa&#231;o</h2>
+        <p class="section-desc" data-reveal>Do conceito &#224; execu&#231;&#227;o, ofere&#231;o solu&#231;&#245;es completas em design e desenvolvimento.</p>
+      </div>
+    </div>
+
+    <div class="services-grid">
+
+      <a href="mailto:viniciusal60@gmail.com?subject=Projeto%20de%20Design%20Gr%C3%A1fico" class="service-card service-card-link" data-reveal>
+        <div class="service-vertical-label">Design</div>
+        <div class="service-number">01</div>
+        <h3 class="service-title">Design Gr&#225;fico</h3>
+        <p class="service-desc">Identidade visual, materiais impressos, embalagens e tudo que sua marca precisa para se destacar visualmente.</p>
+        <div class="service-line"></div>
+      </a>
+
+      <a href="mailto:viniciusal60@gmail.com?subject=Projeto%20de%20Branding" class="service-card service-card-link" data-reveal>
+        <div class="service-vertical-label">Brand</div>
+        <div class="service-number">02</div>
+        <h3 class="service-title">Branding</h3>
+        <p class="service-desc">Estrat&#233;gia de marca completa &#8212; posicionamento, naming, identidade visual, guidelines e aplica&#231;&#245;es.</p>
+        <div class="service-line"></div>
+      </a>
+
+      <a href="mailto:viniciusal60@gmail.com?subject=Projeto%20de%20UI%2FUX%20Design" class="service-card service-card-link" data-reveal>
+        <div class="service-vertical-label">UI/UX</div>
+        <div class="service-number">03</div>
+        <h3 class="service-title">UI/UX Design</h3>
+        <p class="service-desc">Interfaces intuitivas e experi&#234;ncias que encantam. Wireframes, prot&#243;tipos, design systems e testes de usabilidade.</p>
+        <div class="service-line"></div>
+      </a>
+
+      <a href="mailto:viniciusal60@gmail.com?subject=Projeto%20de%20Web%20Development" class="service-card service-card-link" data-reveal>
+        <div class="service-vertical-label">Dev</div>
+        <div class="service-number">04</div>
+        <h3 class="service-title">Web Development</h3>
+        <p class="service-desc">Sites e landing pages de alta performance com anima&#231;&#245;es cinem&#225;ticas, SEO otimizado e responsividade impec&#225;vel.</p>
+        <div class="service-line"></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5: AWARDS — Drag Slider + Hover Image Reveal
+     Fusion: awards-drag-slider + awards-list-hover-image + custom-cursor-drag
+     DNA: eDesign (drag mechanism) + Format-3 (hover reveal)
+     ═══════════════════════════════════════════════════ -->
+<section class="section section-awards" id="awards" data-section-theme="dark">
+  <div class="container">
+    <div class="section-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text" data-reveal>UX & UI</span>
+    </div>
+    <h2 class="section-title" data-split-chars>Sites desenvolvidos</h2>
+  </div>
+
+  <!-- UX & UI — Sites desenvolvidos -->
+  <div class="awards-list">
+
+    <a href="https://kalonoficial.com" target="_blank" rel="noopener noreferrer" class="award-item" data-cursor="explore" data-reveal>
+      <div class="award-index">01</div>
+      <div class="award-info">
+        <div class="award-name">Kalon Oficial</div>
+        <div class="award-project">E-commerce de moda &#8212; Nuvemshop</div>
+      </div>
+      <div class="award-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </div>
+      <div class="award-hover-img">
+        <img src="/clients/kalon.svg" alt="Kalon" loading="lazy">
+      </div>
+    </a>
+
+    <a href="https://arcanaseguros.com.br" target="_blank" rel="noopener noreferrer" class="award-item" data-cursor="explore" data-reveal>
+      <div class="award-index">02</div>
+      <div class="award-info">
+        <div class="award-name">Arcana Seguros</div>
+        <div class="award-project">Site institucional &#8212; Seguradora</div>
+      </div>
+      <div class="award-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </div>
+      <div class="award-hover-img">
+        <img src="/clients/arcana.svg" alt="Arcana Seguros" loading="lazy">
+      </div>
+    </a>
+
+    <a href="https://frxsneakers.com.br" target="_blank" rel="noopener noreferrer" class="award-item" data-cursor="explore" data-reveal>
+      <div class="award-index">03</div>
+      <div class="award-info">
+        <div class="award-name">FRX Sneakers</div>
+        <div class="award-project">E-commerce de sneakers &#8212; Nuvemshop</div>
+      </div>
+      <div class="award-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </div>
+      <div class="award-hover-img">
+        <img src="/clients/frx.svg" alt="FRX Sneakers" loading="lazy">
+      </div>
+    </a>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6: CONTACT — Fullscreen Dark + BG Fade
+     Fusion: team-fullscreen-bgfade + section-color-change
+     DNA: Noomo (cinematic dark) + Laugon (teal accent) + eDesign (team section)
+     ═══════════════════════════════════════════════════ -->
+<section class="section section-contact" id="contact" data-section-theme="accent">
+  <div class="contact-bg-fade"></div>
+  <div class="container">
+    <div class="contact-content">
+
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text" data-reveal>Contato</span>
+      </div>
+
+      <h2 class="contact-title">
+        <span class="contact-title-line" data-split-chars>Vamos criar</span>
+        <span class="contact-title-line" data-split-chars>algo incr&#237;vel</span>
+        <span class="contact-title-line accent" data-split-chars>juntos?</span>
+      </h2>
+
+      <div class="contact-links" data-reveal>
+        <a href="mailto:viniciusal60@gmail.com" class="contact-link-big" data-cursor="explore">
+          <span>viniciusal60@gmail.com</span>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </div>
+
+      <div class="contact-social" data-reveal>
+        <a href="mailto:viniciusal60@gmail.com" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span>Email</span>
+        </a>
+        <a href="https://wa.me/5511968217250" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a href="https://www.instagram.com/vinisal_/" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.behance.net/vinisal_designer" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.527 0-3.664 2.33-5.973 5.478-5.973 3.148 0 4.985 2.115 5.007 5.316.014.818-.103 1.679-.304 2.434H15.48c.393 1.36 1.494 1.583 2.821 1.583 1.357 0 2.153-.704 2.441-1.833H23.726zM15.48 14h4.765c-.172-1.145-1.053-1.943-2.447-1.943-1.39 0-2.171.77-2.318 1.943zM8 12.065c1.612-.388 2.384-1.43 2.384-2.948 0-2.214-1.53-3.117-3.88-3.117H0V21h6.836c2.46 0 4.274-1.022 4.274-3.496 0-1.678-.863-2.888-3.11-3.439zM3.061 8.366h2.916c1.003 0 1.625.42 1.625 1.28 0 .897-.682 1.316-1.719 1.316H3.061V8.366zm3.296 9.27H3.061v-3.195h3.296c1.181 0 1.801.531 1.801 1.594 0 1.102-.701 1.601-1.801 1.601z"/></svg>
+          <span>Behance</span>
+        </a>
+        <a href="https://www.linkedin.com/in/vinicius-gayer-a8008813a/" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">
+        <img src="/profile/logo.svg" alt="Vinicius Gayer" class="footer-logo-img">
+      </a>
+      <span class="footer-copy">&copy; 2026 Vinicius Gayer. Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="/main.js"></script>
+</body>
+</html>

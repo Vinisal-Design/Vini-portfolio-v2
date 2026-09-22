@@ -1,0 +1,29 @@
+{
+  "title": "A F\u00f3rmula",
+  "slug": "a-formula",
+  "type": "Branding",
+  "description": "Rebranding e reposicionamento premium para rede de farm\u00e1cias de manipula\u00e7\u00e3o",
+  "year": "2023\u20132026",
+  "tags": ["Rebranding", "Identidade Visual", "Branding"],
+  "layout_position": 5,
+  "hero_image": "images/01_capa.jpg",
+  "images": [
+    { "file": "images/01_capa.jpg", "label": "Capa / Hero" },
+    { "file": "images/02_stand-evento.jpg", "label": "Stand de evento" },
+    { "file": "images/03_tenda-promocional.jpg", "label": "Tenda promocional" },
+    { "file": "images/04_rollup-institucional.jpg", "label": "Roll-up institucional" },
+    { "file": "images/05_cartao-visitas.jpg", "label": "Cart\u00e3o de visitas" },
+    { "file": "images/06_bloco-notas.jpg", "label": "Bloco de notas" },
+    { "file": "images/07_flyer-nutrishots.jpg", "label": "Flyer Nutrishots" },
+    { "file": "images/08_display-balcao.jpg", "label": "Display de balc\u00e3o" },
+    { "file": "images/09_calendario.jpg", "label": "Calend\u00e1rio" },
+    { "file": "images/10_vale-presente.jpg", "label": "Vale presente" },
+    { "file": "images/11_cubo-institucional.jpg", "label": "Cubo institucional" },
+    { "file": "images/12_cracha-evento.jpg", "label": "Crach\u00e1 de evento" }
+  ],
+  "meta": {
+    "client": "A F\u00f3rmula",
+    "created_at": "2026-04-09",
+    "obsidian_note": "a-formula.md"
+  }
+}

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Comercial — Filosofia do Marketing × Vinicius Gayer</title>
+  <meta name="description" content="Proposta comercial de desenvolvimento web — Resort Foz do Marinheiro e Portal de Oportunidades.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-bg: #0a0a0a;
+      --c-bg-elevated: #111111;
+      --c-bg-card: #161616;
+      --c-surface: #1a1a1a;
+      --c-border: rgba(255, 255, 255, 0.08);
+      --c-border-hover: rgba(255, 255, 255, 0.15);
+      --c-text: #f2f2f2;
+      --c-text-muted: #6d6d76;
+      --c-text-dim: rgba(255, 255, 255, 0.4);
+      --c-accent: #ff5b46;
+      --c-accent-glow: rgba(255, 91, 70, 0.15);
+      --c-accent-alt: #5553e2;
+      --c-white: #ffffff;
+      --f-display: "Space Grotesk", sans-serif;
+      --f-body: "Inter", sans-serif;
+      --fs-display: clamp(3rem, 8vw, 7rem);
+      --fs-h1: clamp(2.5rem, 5.5vw, 5.5rem);
+      --fs-h2: clamp(2rem, 4vw, 4rem);
+      --fs-h3: clamp(1.5rem, 2.5vw, 2rem);
+      --fs-h4: clamp(1.125rem, 1.5vw, 1.5rem);
+      --fs-body: clamp(0.875rem, 1vw, 1.125rem);
+      --fs-body-lg: clamp(1rem, 1.25vw, 1.375rem);
+      --fs-small: clamp(0.75rem, 0.85vw, 0.875rem);
+      --fs-micro: 0.6875rem;
+      --s-xs: 0.25rem; --s-sm: 0.5rem; --s-md: 1rem; --s-lg: 1.5rem;
+      --s-xl: 2rem; --s-2xl: 3rem; --s-3xl: 4rem; --s-4xl: 6rem; --s-5xl: 8rem;
+      --s-section: clamp(5rem, 10vh, 8rem);
+      --container-max: 1100px;
+      --container-pad: clamp(1.25rem, 4vw, 3rem);
+      --ease-signature: cubic-bezier(0, 0, 0.25, 1);
+      --ease-spring: cubic-bezier(0.19, 1, 0.22, 1);
+      --r-sm: 4px; --r-md: 8px; --r-lg: 16px; --r-pill: 50px; --r-full: 50%;
+    }
+    *, *:before, *:after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      color: var(--c-text);
+      background: var(--c-bg);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    strong { font-weight: 600; }
+    ::selection { background: var(--c-accent); color: var(--c-white); }
+    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    .noise {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 256px 256px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--s-lg) var(--container-pad);
+      mix-blend-mode: difference; color: var(--c-white);
+    }
+    .nav-logo-img { height: 2rem; width: auto; filter: invert(1); transition: opacity 0.3s ease; }
+    .nav-logo:hover .nav-logo-img { opacity: 0.7; }
+    .nav-status {
+      display: flex; align-items: center; gap: var(--s-sm);
+      font-size: var(--fs-micro); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6;
+    }
+    .nav-status-dot { width: 6px; height: 6px; background: #4ade80; border-radius: var(--r-full); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, to { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+    /* ── HERO ── */
+    .section { position: relative; padding: var(--s-section) 0; overflow: hidden; }
+    .section-hero { min-height: 88vh; display: flex; align-items: flex-end; padding-bottom: var(--s-3xl); }
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 91, 70, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(85, 83, 226, 0.06) 0%, transparent 50%),
+        var(--c-bg);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--c-border) 1px, transparent 1px), linear-gradient(90deg, var(--c-border) 1px, transparent 1px);
+      background-size: 80px 80px; opacity: 0.3;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+    }
+    .hero-content { position: relative; z-index: 1; width: 100%; }
+    .eyebrow { display: flex; align-items: center; gap: var(--s-sm); margin-bottom: var(--s-2xl); }
+    .eyebrow-dot { width: 6px; height: 6px; background: var(--c-accent); border-radius: var(--r-full); flex-shrink: 0; }
+    .eyebrow-text { font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-text-muted); }
+    .hero-title {
+      font-family: var(--f-display); font-size: var(--fs-display); font-weight: 700;
+      letter-spacing: -0.04em; line-height: 0.95; margin-bottom: var(--s-2xl);
+    }
+    .hero-title .accent { color: var(--c-accent); }
+    .hero-title-line { display: block; }
+    .hero-meta {
+      display: grid; grid-template-columns: 1fr; gap: var(--s-lg);
+      padding-top: var(--s-xl); border-top: 1px solid var(--c-border);
+    }
+    .hero-meta-item { display: flex; flex-direction: column; gap: var(--s-xs); }
+    .hero-meta-label { font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-text-muted); }
+    .hero-meta-value { font-family: var(--f-display); font-size: var(--fs-body-lg); font-weight: 500; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: var(--s-3xl); }
+    .section-title { font-family: var(--f-display); font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+    .section-desc { font-size: var(--fs-body-lg); color: var(--c-text-muted); line-height: 1.6; max-width: 620px; margin-top: var(--s-lg); }
+    .section-elevated { background: var(--c-bg-elevated); }
+    .subheading { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; letter-spacing: -0.01em; margin-bottom: var(--s-lg); }
+
+    /* ── TAGS / PILLS ── */
+    .tag {
+      display: inline-flex; font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; padding: var(--s-xs) var(--s-md);
+      border: 1px solid var(--c-border); border-radius: var(--r-pill); color: var(--c-text-muted);
+    }
+    .tag.accent { border-color: var(--c-accent); color: var(--c-accent); }
+    .tag-row { display: flex; gap: var(--s-sm); flex-wrap: wrap; margin-bottom: var(--s-lg); }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1px;
+      background: var(--c-border); border: 1px solid var(--c-border);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .card {
+      position: relative; background: var(--c-bg); padding: var(--s-xl);
+      display: flex; flex-direction: column; gap: var(--s-sm);
+      transition: background 0.4s var(--ease-signature);
+    }
+    .section-elevated .card { background: var(--c-bg-elevated); }
+    .card:hover { background: var(--c-bg-card); }
+    .card-number { font-family: var(--f-display); font-size: var(--fs-small); font-weight: 500; color: var(--c-accent); letter-spacing: 0.05em; }
+    .card-title { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; letter-spacing: -0.01em; }
+    .card-desc { font-size: var(--fs-small); color: var(--c-text-muted); line-height: 1.7; }
+    .card-line { width: 32px; height: 1px; background: var(--c-accent); margin-top: auto; transition: width 0.4s var(--ease-spring); }
+    .card:hover .card-line { width: 64px; }
+
+    /* ── PAGES GRID (compact) ── */
+    .pages-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1px;
+      background: var(--c-border); border: 1px solid var(--c-border);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .page-cell {
+      display: flex; align-items: baseline; gap: var(--s-md);
+      background: var(--c-bg-elevated); padding: var(--s-md) var(--s-lg);
+      transition: background 0.3s;
+    }
+    .page-cell:hover { background: var(--c-bg-card); }
+    .page-cell-index { font-family: var(--f-display); font-size: var(--fs-micro); color: var(--c-accent); letter-spacing: 0.05em; }
+    .page-cell-name { font-family: var(--f-display); font-size: var(--fs-body); font-weight: 500; }
+
+    /* ── SCENARIO CARDS ── */
+    .scenario { border-radius: var(--r-lg); border: 1px solid var(--c-border); background: var(--c-bg-card); padding: var(--s-xl); display: flex; flex-direction: column; gap: var(--s-md); transition: border-color 0.3s; }
+    .scenario:hover { border-color: var(--c-border-hover); }
+    .scenario.recommended { border-color: var(--c-accent); background: linear-gradient(180deg, rgba(255,91,70,0.06) 0%, var(--c-bg-card) 60%); }
+    .scenario-badge { display: inline-flex; align-self: flex-start; font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: var(--s-xs) var(--s-md); border-radius: var(--r-pill); background: var(--c-accent); color: var(--c-white); }
+    .scenario-badge.neutral { background: transparent; border: 1px solid var(--c-border); color: var(--c-text-muted); }
+    .scenario-title { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; }
+    .scenario-desc { font-size: var(--fs-small); color: var(--c-text-muted); line-height: 1.7; flex-grow: 1; }
+    .scenario-price { font-family: var(--f-display); font-size: var(--fs-body-lg); font-weight: 600; color: var(--c-text); padding-top: var(--s-md); border-top: 1px solid var(--c-border); }
+    .scenarios-grid { display: grid; grid-template-columns: 1fr; gap: var(--s-lg); }
+
+    /* ── PRICE TABLE ── */
+    .price-table { width: 100%; border-collapse: collapse; }
+    .price-table-wrap { border: 1px solid var(--c-border); border-radius: var(--r-lg); overflow-x: auto; }
+    .price-table th, .price-table td { padding: var(--s-lg); text-align: left; border-bottom: 1px solid var(--c-border); font-size: var(--fs-small); }
+    .price-table th { font-family: var(--f-display); font-size: var(--fs-micro); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-text-muted); background: var(--c-bg-elevated); }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table td.price { font-family: var(--f-display); font-weight: 600; font-size: var(--fs-body); white-space: nowrap; }
+    .price-table tr.highlight td { background: rgba(255, 91, 70, 0.06); }
+    .price-table tr.highlight td.price { color: var(--c-accent); }
+    .price-note { font-size: var(--fs-micro); color: var(--c-text-muted); margin-top: var(--s-md); }
+
+    /* ── COMBO CARD ── */
+    .combo {
+      position: relative; border: 1px solid var(--c-accent); border-radius: var(--r-lg);
+      padding: var(--s-2xl); overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 120%, var(--c-accent-glow) 0%, transparent 70%),
+        var(--c-bg-card);
+      display: flex; flex-direction: column; gap: var(--s-md);
+    }
+    .combo-title { font-family: var(--f-display); font-size: var(--fs-h3); font-weight: 700; letter-spacing: -0.02em; }
+    .combo-price { font-family: var(--f-display); font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.03em; color: var(--c-accent); line-height: 1; }
+    .combo-price s { font-size: var(--fs-h4); color: var(--c-text-dim); font-weight: 500; margin-right: var(--s-sm); }
+    .combo-desc { color: var(--c-text-muted); font-size: var(--fs-small); max-width: 520px; }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; border-left: 1px solid var(--c-border); margin-left: var(--s-sm); }
+    .timeline-item { position: relative; padding: 0 0 var(--s-xl) var(--s-xl); }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item:before {
+      content: ""; position: absolute; left: -4px; top: 8px;
+      width: 7px; height: 7px; border-radius: var(--r-full); background: var(--c-accent);
+    }
+    .timeline-week { font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-accent); font-weight: 600; }
+    .timeline-title { font-family: var(--f-display); font-size: var(--fs-body-lg); font-weight: 600; margin-top: var(--s-xs); }
+    .timeline-desc { font-size: var(--fs-small); color: var(--c-text-muted); margin-top: var(--s-xs); max-width: 560px; }
+
+    /* ── CONDITIONS ── */
+    .cond-grid { display: grid; grid-template-columns: 1fr; gap: var(--s-xl); }
+    .cond-col { display: flex; flex-direction: column; gap: var(--s-md); }
+    .cond-col h3 { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; padding-bottom: var(--s-sm); border-bottom: 1px solid var(--c-border); }
+    .cond-col ul { list-style: none; display: flex; flex-direction: column; gap: var(--s-sm); }
+    .cond-col li { display: flex; gap: var(--s-sm); font-size: var(--fs-small); color: var(--c-text-muted); line-height: 1.6; }
+    .cond-col li:before { content: "—"; color: var(--c-accent); flex-shrink: 0; }
+    .cond-col.excluded li:before { content: "×"; color: var(--c-text-dim); }
+
+    /* ── CTA ── */
+    .section-cta { min-height: 65vh; display: flex; align-items: center; background: var(--c-bg-elevated); }
+    .cta-bg-fade { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% 100%, var(--c-accent-glow) 0%, transparent 70%); opacity: 0.5; }
+    .cta-content { position: relative; z-index: 1; }
+    .cta-title { font-family: var(--f-display); font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: var(--s-2xl); }
+    .cta-title .accent { color: var(--c-accent); }
+    .cta-title-line { display: block; }
+    .btn-big {
+      display: inline-flex; align-items: center; gap: var(--s-md);
+      font-family: var(--f-display); font-size: clamp(1.1rem, 2.5vw, 1.75rem); font-weight: 500;
+      padding: var(--s-lg) var(--s-2xl); border: 1px solid var(--c-border); border-radius: var(--r-pill);
+      transition: border-color 0.3s, background 0.3s, color 0.3s; margin-bottom: var(--s-2xl);
+    }
+    .btn-big:hover { border-color: var(--c-accent); background: var(--c-accent); color: var(--c-white); }
+    .btn-big svg { transition: transform 0.3s var(--ease-spring); }
+    .btn-big:hover svg { transform: translate(3px, -3px); }
+    .cta-social { display: flex; flex-wrap: wrap; gap: var(--s-md) var(--s-xl); }
+    .social-link { font-size: var(--fs-body); color: var(--c-text-muted); transition: color 0.3s; }
+    .social-link:hover { color: var(--c-accent); }
+
+    /* ── FOOTER ── */
+    .footer { padding: var(--s-xl) 0; border-top: 1px solid var(--c-border); }
+    .footer-inner { display: flex; flex-direction: column; gap: var(--s-md); align-items: center; text-align: center; }
+    .footer-copy { font-size: var(--fs-micro); color: var(--c-text-muted); }
+    .footer-logo-img { height: 2rem; width: auto; filter: invert(1); opacity: 0.6; transition: opacity 0.3s ease; }
+    .footer-logo:hover .footer-logo-img { opacity: 1; }
+
+    .handwritten { font-family: 'Caveat', cursive; color: var(--c-accent); font-size: 1.15em; }
+
+    /* ── REVEAL ── */
+    [data-reveal] { opacity: 0; transform: translateY(30px); }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); transition: opacity 1s var(--ease-signature), transform 1s var(--ease-signature); }
+
+    /* ── BREAKPOINTS (mobile-first) ── */
+    @media (min-width: 640px) {
+      .hero-meta { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .pages-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+    @media (min-width: 768px) {
+      .hero-meta { grid-template-columns: repeat(4, 1fr); }
+      .scenarios-grid { grid-template-columns: repeat(3, 1fr); }
+      .cond-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .cards-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+      .pages-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *:before, *:after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- ═══ NAV ═══ -->
+<header class="nav">
+  <a href="/" class="nav-logo" aria-label="Vinicius Gayer">
+    <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="nav-logo-img">
+  </a>
+  <div class="nav-status">
+    <span class="nav-status-dot"></span>
+    <span>Proposta comercial</span>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="section section-hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-grid-lines"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Proposta comercial · Agosto 2026</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-title-line">Dois projetos,</span>
+      <span class="hero-title-line accent">uma parceria.</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Preparado para</span>
+        <span class="hero-meta-value">Vitória Cosme — Filosofia do Marketing</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Por</span>
+        <span class="hero-meta-value">Vinicius Gayer — Design &amp; Dev</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Data</span>
+        <span class="hero-meta-value">11 · 08 · 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Validade</span>
+        <span class="hero-meta-value">15 dias</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 ENTENDIMENTO ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">01 — Entendimento</span>
+      </div>
+      <h2 class="section-title">O que vamos construir <span class="handwritten">juntos</span></h2>
+      <p class="section-desc">
+        Você cuida da estratégia, do texto e da organização do conteúdo; eu assumo
+        o design e o desenvolvimento de ponta a ponta. Layout autoral, sem template,
+        com ciclo rápido de aprovação — envio, você valida, eu ajusto.
+      </p>
+    </div>
+    <div class="cards-grid" data-reveal>
+      <div class="card">
+        <span class="card-number">Projeto 01</span>
+        <h3 class="card-title">Resort Foz do Marinheiro</h3>
+        <p class="card-desc">Redesign completo do site atual, com visual clean e moderno inspirado nas referências Fasano e Royal Palm Plaza — e a fotografia do resort em primeiro plano.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">Projeto 02</span>
+        <h3 class="card-title">Portal de Oportunidades</h3>
+        <p class="card-desc">Site novo de 2 páginas no formato imobiliário, com até 10 propriedades cadastradas e plano de manutenção mensal para manter tudo sempre atualizado.</p>
+        <span class="card-line"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 PROJETO 1 — RESORT ═══ -->
+<section class="section section-elevated" id="resort">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">02 — Projeto 01</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag accent">Redesign</span>
+        <span class="tag">6–10 páginas</span>
+        <span class="tag">Design + Dev</span>
+      </div>
+      <h2 class="section-title">Resort Foz do Marinheiro</h2>
+      <p class="section-desc">
+        Um site à altura do lugar: o acervo de mais de 11 anos de fotos e imagens de drone
+        vira o centro do design, com navegação direta e um caminho de reserva sem fricção.
+      </p>
+    </div>
+
+    <h3 class="subheading" data-reveal>Páginas</h3>
+    <div class="pages-grid" data-reveal style="margin-bottom: var(--s-3xl);">
+      <div class="page-cell"><span class="page-cell-index">01</span><span class="page-cell-name">Home</span></div>
+      <div class="page-cell"><span class="page-cell-index">02</span><span class="page-cell-name">Acomodações</span></div>
+      <div class="page-cell"><span class="page-cell-index">03</span><span class="page-cell-name">Day Use</span></div>
+      <div class="page-cell"><span class="page-cell-index">04</span><span class="page-cell-name">Kids</span></div>
+      <div class="page-cell"><span class="page-cell-index">05</span><span class="page-cell-name">Pet Friendly</span></div>
+      <div class="page-cell"><span class="page-cell-index">06</span><span class="page-cell-name">Alimentação</span></div>
+      <div class="page-cell"><span class="page-cell-index">07</span><span class="page-cell-name">Experiências</span></div>
+      <div class="page-cell"><span class="page-cell-index">08</span><span class="page-cell-name">Sobre</span></div>
+      <div class="page-cell"><span class="page-cell-index">09</span><span class="page-cell-name">Contato</span></div>
+      <div class="page-cell"><span class="page-cell-index">10</span><span class="page-cell-name">Pacotes</span></div>
+    </div>
+
+    <h3 class="subheading" data-reveal>Reserva — três caminhos</h3>
+    <div class="scenarios-grid" data-reveal style="margin-bottom: var(--s-3xl);">
+      <div class="scenario recommended">
+        <span class="scenario-badge">Recomendado</span>
+        <h4 class="scenario-title">WhatsApp</h4>
+        <p class="scenario-desc">Formulário de datas, hóspedes e acomodação que abre o WhatsApp do resort com a mensagem pronta e organizada. O time comercial fecha a venda no contato humano — sem mensalidade de ferramenta.</p>
+        <div class="scenario-price">Incluso</div>
+      </div>
+      <div class="scenario">
+        <span class="scenario-badge neutral">Alternativa</span>
+        <h4 class="scenario-title">Omnibees</h4>
+        <p class="scenario-desc">O botão Reservar direciona para o motor que o resort já contrata — disponibilidade e preços sazonais ficam centralizados na plataforma, sem risco de datas duplicadas.</p>
+        <div class="scenario-price">Incluso</div>
+      </div>
+      <div class="scenario">
+        <span class="scenario-badge neutral">Fase 2</span>
+        <h4 class="scenario-title">Motor próprio</h4>
+        <p class="scenario-desc">Sistema de reservas sob medida, com gestão própria de disponibilidade. Depende de um levantamento técnico das ferramentas do resort — orçado à parte quando fizer sentido.</p>
+        <div class="scenario-price">Sob orçamento</div>
+      </div>
+    </div>
+
+    <h3 class="subheading" data-reveal>Investimento</h3>
+    <div class="price-table-wrap" data-reveal>
+      <table class="price-table">
+        <thead>
+          <tr><th>Escopo</th><th>Prazo</th><th>Investimento</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>6 páginas</strong></td><td>até 12 dias</td><td class="price">R$ 2.000</td></tr>
+          <tr><td><strong>8 páginas</strong></td><td>até 15 dias</td><td class="price">R$ 2.500</td></tr>
+          <tr class="highlight"><td><strong>10 páginas</strong></td><td>até 20 dias</td><td class="price">R$ 3.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="price-note" data-reveal>Página adicional: R$ 250. A lista final de páginas se ajusta no briefing, sem mudar o valor contratado.</p>
+  </div>
+</section>
+
+<!-- ═══ 03 PROJETO 2 — PORTAL ═══ -->
+<section class="section" id="imobiliario">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">03 — Projeto 02</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag accent">Site novo</span>
+        <span class="tag">2 páginas</span>
+        <span class="tag">Manutenção mensal</span>
+      </div>
+      <h2 class="section-title">Portal de Oportunidades</h2>
+      <p class="section-desc">
+        Home de apresentação + página de oportunidades com até 10 propriedades —
+        cada uma com fotos, localização, metragem, descrição, preço e botão de
+        contato direto no WhatsApp com mensagem pré-montada.
+      </p>
+    </div>
+
+    <div class="price-table-wrap" data-reveal>
+      <table class="price-table">
+        <thead>
+          <tr><th>Item</th><th>Prazo</th><th>Investimento</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td><strong>Site completo — 2 páginas</strong></td><td>5–7 dias úteis</td><td class="price">R$ 1.000</td></tr>
+          <tr><td><strong>Manutenção mensal</strong> · até 5 alterações</td><td>Até 48h por alteração</td><td class="price">R$ 200/mês</td></tr>
+          <tr><td>Alteração avulsa</td><td>Até 72h</td><td class="price">R$ 50</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="price-note" data-reveal>Alterações cobrem subir novas propriedades, remover vendidas e trocar fotos ou textos. Você manda a lista, eu atualizo — sem fidelidade.</p>
+  </div>
+</section>
+
+<!-- ═══ 04 COMBO ═══ -->
+<section class="section section-elevated">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">04 — Investimento</span>
+      </div>
+      <h2 class="section-title">Fechando os dois, <span class="handwritten">sai melhor</span></h2>
+    </div>
+    <div class="combo" data-reveal>
+      <h3 class="combo-title">Pacote Parceria — Projetos 01 + 02</h3>
+      <div class="combo-price"><s>R$ 4.000</s> R$ 3.500</div>
+      <p class="combo-desc">
+        Resort no escopo completo de 10 páginas + Portal de Oportunidades, contratados
+        juntos e rodando em paralelo: o portal fica pronto na primeira semana,
+        enquanto o resort avança no design.
+      </p>
+      <div class="tag-row" style="margin-bottom: 0;">
+        <span class="tag accent">Economia de R$ 500</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 PROCESSO ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">05 — Processo</span>
+      </div>
+      <h2 class="section-title">Como funciona</h2>
+    </div>
+    <div class="timeline" data-reveal>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 01</span>
+        <h4 class="timeline-title">Briefing</h4>
+        <p class="timeline-desc">Recebo a estratégia, os textos e a curadoria de imagens da Filosofia do Marketing. Fechamos juntos a arquitetura de páginas e o caminho de reserva.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 02</span>
+        <h4 class="timeline-title">Design</h4>
+        <p class="timeline-desc">Começo pela Home para aprovar a direção visual. Com o norte definido, escalo o layout para as demais páginas.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 03</span>
+        <h4 class="timeline-title">Desenvolvimento</h4>
+        <p class="timeline-desc">Código responsivo mobile-first, otimização das imagens, SEO on-page e as integrações de contato e reserva.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 04</span>
+        <h4 class="timeline-title">Go-live</h4>
+        <p class="timeline-desc">Testes em dispositivos reais, ajustes finais e publicação no domínio do cliente, com acompanhamento pós-lançamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 CONDIÇÕES ═══ -->
+<section class="section section-elevated">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">06 — Condições</span>
+      </div>
+      <h2 class="section-title">O combinado não sai caro</h2>
+    </div>
+    <div class="cond-grid" data-reveal>
+      <div class="cond-col">
+        <h3>Incluso</h3>
+        <ul>
+          <li>Design exclusivo, sem templates</li>
+          <li>Site responsivo (mobile, tablet, desktop)</li>
+          <li>SEO on-page básico</li>
+          <li>Formulários + integração WhatsApp</li>
+          <li>2 rodadas de revisão por etapa</li>
+          <li>30 dias de ajustes pós-entrega</li>
+        </ul>
+      </div>
+      <div class="cond-col excluded">
+        <h3>Não incluso</h3>
+        <ul>
+          <li>Textos e estratégia (Filosofia do Marketing)</li>
+          <li>Produção de fotos e vídeos</li>
+          <li>Domínio e ferramentas de terceiros</li>
+        </ul>
+      </div>
+      <div class="cond-col">
+        <h3>Pagamento</h3>
+        <ul>
+          <li>50% na assinatura · 50% na entrega</li>
+          <li>Pix ou transferência</li>
+          <li>Prazos contam do recebimento do conteúdo</li>
+          <li>Proposta válida por 15 dias</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="section section-cta">
+  <div class="cta-bg-fade"></div>
+  <div class="container cta-content">
+    <div class="eyebrow" data-reveal>
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Próximo passo</span>
+    </div>
+    <h2 class="cta-title" data-reveal>
+      <span class="cta-title-line">Fechou?</span>
+      <span class="cta-title-line accent">Vamos começar.</span>
+    </h2>
+    <div data-reveal>
+      <a href="https://wa.me/5511968217250?text=Oi%20Vinicius!%20Vi%20a%20proposta%20e%20quero%20seguir%20com%20o%20projeto." target="_blank" rel="noopener noreferrer" class="btn-big">
+        <span>Aprovar pelo WhatsApp</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </a>
+      <div class="cta-social">
+        <a href="mailto:viniciusal60@gmail.com" class="social-link">viniciusal60@gmail.com</a>
+        <a href="/" class="social-link">Portfólio completo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-copy">&copy; 2026 Vinicius Gayer — Proposta confidencial, preparada para Filosofia do Marketing.</span>
+    <a href="/" class="footer-logo" aria-label="Vinicius Gayer">
+      <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="footer-logo-img">
+    </a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('revealed'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

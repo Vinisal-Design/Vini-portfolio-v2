@@ -1,0 +1,30 @@
+{
+  "title": "IA Product Imagery",
+  "slug": "a-formula-ia",
+  "type": "Branding",
+  "description": "Imagens de produto geradas com IA para linha premium de suplementos \u2014 A F\u00f3rmula",
+  "year": "2025",
+  "tags": ["IA", "Branding", "Packaging"],
+  "layout_position": 6,
+  "hero_image": "images/01_capa.jpg",
+  "images": [
+    { "file": "images/01_capa.jpg", "label": "Capa \u2014 Creatina Caramelo dupla" },
+    { "file": "images/02_omega3.jpg", "label": "\u00d4mega 3 floating capsules" },
+    { "file": "images/03_omega-dha.jpg", "label": "\u00d4mega DHA fundo dourado" },
+    { "file": "images/04_creatina-sunset.jpg", "label": "Creatina Caramelo sunset" },
+    { "file": "images/05_creatina-efervescente.jpg", "label": "Creatina Efervescente academia" },
+    { "file": "images/06_creatina-bancada.jpg", "label": "Creatina Efervescente bancada" },
+    { "file": "images/07_creatina-lifestyle.jpg", "label": "Creatina Caramelo lifestyle" },
+    { "file": "images/08_creatina-vertical.jpg", "label": "Creatina Caramelo vertical" },
+    { "file": "images/09_formula-coffee.jpg", "label": "F\u00f3rmula Coffee sunset" },
+    { "file": "images/10_gummy-collagen.jpg", "label": "Gummy Collagen" },
+    { "file": "images/11_omega3-capsulas.png", "label": "\u00d4mega 3 c\u00e1psulas douradas" },
+    { "file": "images/12_omega3-mesa.png", "label": "\u00d4mega 3 mesa escura" },
+    { "file": "images/13_creatina-caramelo-render.png", "label": "Creatina Caramelo render com brigadeiros" }
+  ],
+  "meta": {
+    "client": "A F\u00f3rmula",
+    "created_at": "2026-04-09",
+    "obsidian_note": "a-formula-ia.md"
+  }
+}

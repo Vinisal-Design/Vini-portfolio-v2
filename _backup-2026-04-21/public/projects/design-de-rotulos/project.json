@@ -1,0 +1,23 @@
+{
+  "title": "Design de R\u00f3tulos",
+  "slug": "design-de-rotulos",
+  "type": "Packaging",
+  "description": "Design de r\u00f3tulos para linha de suplementos premium \u2014 A F\u00f3rmula",
+  "year": "2025",
+  "tags": ["Packaging", "Branding", "IA"],
+  "layout_position": 7,
+  "hero_image": "images/01_capa.jpg",
+  "images": [
+    { "file": "images/01_capa.jpg", "label": "Creatina em Caramelo" },
+    { "file": "images/02_formula-coffee.jpg", "label": "F\u00f3rmula Coffee" },
+    { "file": "images/03_omega3.jpg", "label": "\u00d4mega 3" },
+    { "file": "images/04_gummy-collagen.jpg", "label": "Gummy Collagen" },
+    { "file": "images/05_gummy-creatina.jpg", "label": "Gummy Creatina" },
+    { "file": "images/06_nutri-hair-gum.jpg", "label": "Nutri Hair Gum" }
+  ],
+  "meta": {
+    "client": "A F\u00f3rmula",
+    "created_at": "2026-04-10",
+    "obsidian_note": "design-de-rotulos.md"
+  }
+}

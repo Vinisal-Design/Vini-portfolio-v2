@@ -117,10 +117,8 @@
     { "name": "Branding", "slug": "branding" },
     { "name": "Identidade Visual", "slug": "identidade-visual" },
     { "name": "Embalagem", "slug": "embalagem" },
-    { "name": "Social Media", "slug": "social-media" },
-    { "name": "Rótulos", "slug": "rotulos" },
-    { "name": "Vídeo", "slug": "video" },
-    { "name": "Impressos", "slug": "impressos" }
+    { "name": "R\u00f3tulos", "slug": "rotulos" },
+    { "name": "V\u00eddeo", "slug": "video" }
   ],
 
   "projects": [
@@ -155,63 +153,26 @@
     {
       "id": "a-formula-rotulos",
       "slug": "a-formula-rotulos",
-      "title": "A Fórmula — Linha Premium",
-      "subtitle": "Rótulos e embalagens premium",
-      "category": "Rótulos",
+      "title": "A F\u00f3rmula \u2014 Shooting",
+      "subtitle": "Dire\u00e7\u00e3o de arte e fotografia de produto para linha premium de suplementos",
+      "category": "Fotografia",
       "year": "2024 - 2026",
-      "client": "A Fórmula Nutrition",
-      "role": "Designer de Embalagens",
-      "cover": "/projects/a-formula/capa.jpg",
-      "coverAlt": "Linha premium de suplementos A Fórmula",
-      "tags": ["rótulos", "embalagem", "premium", "suplementos"],
+      "client": "A F\u00f3rmula Nutrition",
+      "role": "Dire\u00e7\u00e3o de Arte",
+      "cover": "/projects/a-formula/shooting/01_capa.jpg",
+      "coverAlt": "Shooting A F\u00f3rmula \u2014 modelo com F\u00f3rmula Coffee",
+      "tags": ["shooting", "dire\u00e7\u00e3o de arte", "fotografia", "premium"],
       "featured": true,
       "images": [
-        "/projects/a-formula/capa.jpg",
-        "/projects/a-formula/rotulos/creatina-caramelo.jpg",
-        "/projects/a-formula/rotulos/prancheta-conceito.jpg",
-        "/projects/a-formula/rotulos-grid/nutri-hair.jpg",
-        "/projects/a-formula/rotulos-grid/omega-dha.jpg",
-        "/projects/a-formula/rotulos-grid/produto-01.jpg",
-        "/projects/a-formula/rotulos-grid/produto-02.jpg",
-        "/projects/a-formula/rotulos-grid/produto-03.jpg"
-      ]
-    },
-    {
-      "id": "a-formula-social",
-      "slug": "a-formula-social",
-      "title": "A Fórmula — Social Media",
-      "subtitle": "Conteúdo para Instagram e redes",
-      "category": "Social Media",
-      "year": "2024 - 2026",
-      "client": "A Fórmula",
-      "role": "Designer de Social Media",
-      "cover": "/projects/projeto-01/capa.jpg",
-      "coverAlt": "Grid de posts Instagram A Fórmula",
-      "tags": ["social media", "instagram", "carrossel", "stories"],
-      "featured": true,
-      "images": [
-        "/projects/projeto-01/capa.jpg",
-        "/projects/projeto-01/foto-01.jpg",
-        "/projects/projeto-01/foto-02.jpg"
-      ]
-    },
-    {
-      "id": "a-formula-impressos",
-      "slug": "a-formula-impressos",
-      "title": "A Fórmula — Impressos",
-      "subtitle": "Flyers, folders, lâminas e papelaria",
-      "category": "Impressos",
-      "year": "2023 - 2026",
-      "client": "A Fórmula",
-      "role": "Designer Gráfico",
-      "cover": "/projects/projeto-02/capa.jpg",
-      "coverAlt": "Mockup de flyer A Fórmula",
-      "tags": ["impressos", "flyer", "folder", "papelaria"],
-      "featured": true,
-      "images": [
-        "/projects/projeto-02/capa.jpg",
-        "/projects/projeto-02/foto-01.jpg",
-        "/projects/projeto-02/foto-02.jpg"
+        "/projects/a-formula/shooting/01_capa.jpg",
+        "/projects/a-formula/shooting/02_coffee-beans.jpg",
+        "/projects/a-formula/shooting/03_coffee-flatlay.jpg",
+        "/projects/a-formula/shooting/04_collagen-pink.jpg",
+        "/projects/a-formula/shooting/05_creatina-modelo.jpg",
+        "/projects/a-formula/shooting/06_coffee-smile.jpg",
+        "/projects/a-formula/shooting/07_collagen-modelo.jpg",
+        "/projects/a-formula/shooting/08_coffee-preparo.jpg",
+        "/projects/a-formula/shooting/09_collagen-gummy.jpg"
       ]
     },
     {
@@ -267,15 +228,15 @@
     {
       "id": "a-formula-ia",
       "slug": "a-formula-ia",
-      "title": "A F\u00f3rmula \u2014 IA Product Imagery",
-      "subtitle": "Imagens de produto geradas com IA para linha premium",
+      "title": "A F\u00f3rmula \u2014 Produ\u00e7\u00e3o com IA",
+      "subtitle": "Imagens e v\u00eddeos de produto gerados com intelig\u00eancia artificial",
       "category": "Branding",
-      "year": "2025",
+      "year": "2025 - 2026",
       "client": "A F\u00f3rmula Nutrition",
       "role": "Designer + IA Generativa",
       "cover": "/projects/a-formula-ia/images/01_capa.jpg",
       "coverAlt": "Creatina Caramelo \u2014 imagem gerada com IA",
-      "tags": ["IA", "branding", "packaging"],
+      "tags": ["IA", "v\u00eddeo", "branding", "packaging"],
       "featured": true,
       "images": [
         "/projects/a-formula-ia/images/01_capa.jpg",
@@ -284,10 +245,16 @@
         "/projects/a-formula-ia/images/04_creatina-sunset.jpg",
         "/projects/a-formula-ia/images/05_creatina-efervescente.jpg",
         "/projects/a-formula-ia/images/06_creatina-bancada.jpg",
-        "/projects/a-formula-ia/images/07_creatina-lifestyle.jpg",
         "/projects/a-formula-ia/images/08_creatina-vertical.jpg",
         "/projects/a-formula-ia/images/09_formula-coffee.jpg",
-        "/projects/a-formula-ia/images/10_gummy-collagen.jpg"
+        "/projects/a-formula-ia/images/10_gummy-collagen.jpg",
+        "/projects/a-formula-ia/images/11_omega3-capsulas.png",
+        "/projects/a-formula-ia/images/12_omega3-mesa.png",
+        "/projects/a-formula-ia/images/13_creatina-caramelo-render.png"
+      ],
+      "videos": [
+        "/projects/a-formula-ia/videos/reels-dia-das-mulheres.mp4",
+        "/projects/a-formula-ia/videos/reels-performance-institucional.mp4"
       ]
     },
     {
@@ -311,6 +278,30 @@
         "/projects/design-de-rotulos/images/05_gummy-creatina.jpg",
         "/projects/design-de-rotulos/images/06_nutri-hair-gum.jpg"
       ]
+    },
+    {
+      "id": "a-formula-pet",
+      "slug": "a-formula-pet",
+      "title": "A F\u00f3rmula Pet \u2014 Social Media",
+      "subtitle": "Cria\u00e7\u00e3o de conte\u00fado e dire\u00e7\u00e3o criativa para inaugura\u00e7\u00e3o da A F\u00f3rmula Pet",
+      "category": "Social Media",
+      "year": "2026",
+      "client": "A F\u00f3rmula Pet",
+      "role": "Designer \u0026 Social Media",
+      "cover": "/projects/a-formula-pet/images/01_capa.jpg",
+      "coverAlt": "Grid de social media A F\u00f3rmula Pet",
+      "tags": ["social media", "branding", "lan\u00e7amento", "pet"],
+      "featured": true,
+      "images": [
+        "/projects/a-formula-pet/images/01_capa.jpg",
+        "/projects/a-formula-pet/images/02_lancamento.jpg",
+        "/projects/a-formula-pet/images/03_institucional.jpg",
+        "/projects/a-formula-pet/images/04_pets-instagram.jpg",
+        "/projects/a-formula-pet/images/05_golden-instagram.jpg",
+        "/projects/a-formula-pet/images/06_blogueirau.jpg",
+        "/projects/a-formula-pet/images/07_caopanheiro.jpg",
+        "/projects/a-formula-pet/images/08_cao-arteiro.jpg"
+      ]
     }
   ],
 
@@ -332,12 +323,6 @@
     "/projects/a-formula/rotulos-grid/produto-01.jpg",
     "/projects/a-formula/rotulos-grid/produto-02.jpg",
     "/projects/a-formula/rotulos-grid/produto-03.jpg",
-    "/projects/projeto-01/capa.jpg",
-    "/projects/projeto-01/foto-01.jpg",
-    "/projects/projeto-01/foto-02.jpg",
-    "/projects/projeto-02/capa.jpg",
-    "/projects/projeto-02/foto-01.jpg",
-    "/projects/projeto-02/foto-02.jpg",
     "/projects/fidelize-doctor/capa.jpg",
     "/projects/fidelize-doctor/02-conceito.jpg",
     "/projects/fidelize-doctor/03-simbolo.jpg",

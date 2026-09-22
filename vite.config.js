@@ -1,16 +1,15 @@
-import { resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
-
-export default {
+export default defineConfig({
   build: {
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        projetos: resolve(__dirname, 'projetos.html'),
         projeto: resolve(__dirname, 'projeto.html'),
+        projetos: resolve(__dirname, 'projetos.html'),
+        filosofiaDoMarketing: resolve(__dirname, 'filosofia-do-marketing/index.html'),
       },
     },
   },
-}
+});
