@@ -232,8 +232,8 @@ async function sites() {
       </article>`).join('') : '<p class="empty">Nenhum site com esse filtro.</p>';
     $('#siteCount').textContent = `${list.length} de ${all.length}`;
     siteState.visible = list.map(x => x.id);
-    $('#siteList [data-pick]').forEach(cb => cb.onchange = () => { const id = cb.closest('.site').dataset.id; cb.checked ? siteState.sel.add(id) : siteState.sel.delete(id); bulkBar(); });
-    $('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
+    $$('#siteList [data-pick]').forEach(cb => cb.onchange = () => { const id = cb.closest('.site').dataset.id; cb.checked ? siteState.sel.add(id) : siteState.sel.delete(id); bulkBar(); });
+    $$('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
     bulkBar();
     $$('#siteList [data-del-site]').forEach(b => b.onclick = async () => {
       const s = all.find(x => x.id === b.closest('.site').dataset.id);
@@ -252,7 +252,7 @@ async function sites() {
     $('#bulkPortfolio').disabled = $('#bulkDelete').disabled = $('#bulkClear').disabled = !n;
     $('#bulkPortfolio').textContent = `→ Portfólio${n ? ` (${n})` : ''}`;
     $('#bulkDelete').textContent = `Excluir${n ? ` (${n})` : ''}`;
-    $('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
+    $$('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
   };
   $('#view').innerHTML = `
     <div class="row between"><h2>Sites desenvolvidos</h2><span class="muted" id="siteCount"></span></div>
