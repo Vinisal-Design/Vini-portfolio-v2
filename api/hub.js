@@ -187,7 +187,11 @@ const actions = {
   },
 
   // ── assets (storage) ──
-  'assets.list': ({ q } = {}) => db('GET', `assets?select=*,project:projects(slug,title)&order=created_at.desc${q ? `&or=(title.ilike.*${encodeURIComponent(q)}*,tags.cs.{${encodeURIComponent(q)}})` : ''}`),
+  'assets.list': ({ q } = {}) => {
+    // só letras/números/espaço/hífen: impede montar filtro extra do PostgREST pela busca
+    const t = String(q || '').normalize('NFC').replace(/[^\p{L}\p{N} _-]+/gu, '').trim().slice(0, 60);
+    return db('GET', `assets?select=*,project:projects(slug,title)&order=created_at.desc${t ? `&or=(title.ilike.*${encodeURIComponent(t)}*,tags.cs.{${encodeURIComponent(t)}})` : ''}`);
+  },
   // 1) pede URL de upload assinada  2) cliente faz PUT do arquivo  3) assets.create registra (bucket privado)
   'upload.sign': async ({ bucket, path }) => {
     if (!['public-media', 'private-assets'].includes(bucket)) throw new HttpError(400, 'bucket inválido');
