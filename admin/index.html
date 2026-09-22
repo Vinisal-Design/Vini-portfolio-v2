@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Hub</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main id="login" class="login" hidden>
+    <form id="loginForm" class="card login-card" autocomplete="on">
+      <span class="eyebrow"><span class="dot"></span>Hub</span>
+      <h1>Entrar</h1>
+      <label>E-mail <input id="email" type="email" autocomplete="username" required></label>
+      <label>Senha <input id="password" type="password" autocomplete="current-password" required></label>
+      <button type="submit" class="btn primary" id="loginBtn">Entrar</button>
+      <p id="loginMsg" class="msg" role="alert"></p>
+    </form>
+  </main>
+
+  <div id="app" hidden>
+    <header class="top">
+      <span class="brand"><span class="dot"></span>Hub</span>
+      <nav class="tabs" role="tablist">
+        <button class="tab" data-tab="dashboard">Dashboard</button>
+        <button class="tab" data-tab="projects">Projetos</button>
+        <button class="tab" data-tab="finance">Jobs &amp; Financeiro</button>
+        <button class="tab" data-tab="assets">Assets</button>
+      </nav>
+      <button class="btn ghost" id="logout">Sair</button>
+    </header>
+    <section id="view" class="view"></section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal" class="modal"><div id="modalBody"></div></dialog>
+
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>

@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "node scripts/generate.mjs && vite build && vite build --config vite.admin.config.js",
+    "preview": "vite preview",
+    "hub": "node scripts/hub.mjs"
   },
   "devDependencies": {
     "vite": "^8.0.8"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.0",
     "gsap": "^3.12.7",
     "lenis": "^1.1.18"
   }
