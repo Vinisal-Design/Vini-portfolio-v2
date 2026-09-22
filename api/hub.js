@@ -155,7 +155,8 @@ const actions = {
   // upsert por `key` (importação idempotente)
   'sites.import': async ({ sites }) => {
     if (!Array.isArray(sites) || !sites.length) throw new HttpError(400, 'sites: lista');
-    const rows = sites.map(s => { need(s, 'key', 'name'); return pick(s, ['key', ...SITE_FIELDS]); });
+    // PostgREST exige as mesmas chaves em todas as linhas do lote
+    const rows = sites.map(s => { need(s, 'key', 'name'); return Object.fromEntries(['key', ...SITE_FIELDS].map(k => [k, s[k] ?? null])); });
     return { upserted: (await db('POST', 'sites?on_conflict=key', rows, 'resolution=merge-duplicates,return=representation')).length };
   },
   // cria um projeto OCULTO do portfólio a partir do site (sem imagens; completar no admin antes de mostrar)
