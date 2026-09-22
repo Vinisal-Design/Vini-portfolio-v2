@@ -1,0 +1,30 @@
+/* Seção "Sites desenvolvidos" — carrossel de prints (só a home carrega este arquivo) */
+.sites-head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s-lg);flex-wrap:wrap}
+.sites-nav{display:flex;align-items:center;gap:var(--s-sm)}
+.sites-count{font-family:var(--f-display);font-size:var(--fs-small);color:var(--c-text-muted);margin-right:var(--s-sm);letter-spacing:.05em}
+.sites-count b{color:var(--c-text);font-weight:600}
+.sites-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--c-border-hover);background:transparent;color:var(--c-text);display:grid;place-items:center;cursor:pointer;transition:background .3s var(--ease-signature),color .3s,border-color .3s}
+.sites-btn:hover{background:var(--c-accent);border-color:var(--c-accent);color:#0a0a0a}
+.sites-track{display:flex;gap:clamp(12px,1.6vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--container-pad);padding:var(--s-2xl) var(--container-pad) var(--s-md);scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
+.sites-track::-webkit-scrollbar{display:none}
+.sites-track.dragging{cursor:grabbing;scroll-snap-type:none}
+.sites-track.dragging .site-card{pointer-events:none}
+/* card limitado pela largura E pela altura da tela: título + cards cabem numa tela só */
+.site-card{flex:0 0 clamp(240px,min(24vw,calc((100svh - 430px) * 1.6)),420px);scroll-snap-align:start;color:inherit;text-decoration:none;display:flex;flex-direction:column;gap:var(--s-md)}
+.site-window{border-radius:14px;overflow:hidden;background:var(--c-surface);border:1px solid var(--c-border);transition:transform .6s var(--ease-spring),border-color .3s;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.site-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#141414;border-bottom:1px solid var(--c-border)}
+.site-bar i{width:9px;height:9px;border-radius:50%;background:#2c2c2c}
+.site-bar span{margin-left:10px;font-size:11px;color:var(--c-text-muted);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.site-window img,.site-noshot{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform 1.2s var(--ease-signature)}
+.site-noshot{background:var(--c-bg-card)}
+.site-card:hover .site-window{transform:translateY(-6px);border-color:var(--c-border-hover)}
+.site-card:hover .site-window img{transform:scale(1.03)}
+.site-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-md)}
+.site-name{font-family:var(--f-display);font-size:clamp(1rem,1.2vw,1.25rem);font-weight:600;letter-spacing:-.01em;transition:color .3s var(--ease-signature)}
+.site-type{font-size:var(--fs-small);color:var(--c-text-muted);margin-top:var(--s-xs)}
+.site-go{color:var(--c-text-muted);transition:color .3s,transform .3s var(--ease-spring)}
+.site-card:hover .site-name,.site-card:hover .site-go{color:var(--c-accent)}
+.site-card:hover .site-go{transform:translate(3px,-3px)}
+@media (max-width:1024px){.site-card{flex-basis:clamp(240px,40vw,380px)}}
+@media (max-width:600px){.site-card{flex-basis:72vw}.sites-btn{width:42px;height:42px}}
+@media (prefers-reduced-motion:reduce){.site-window,.site-window img{transition:none}}

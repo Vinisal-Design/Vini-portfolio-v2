@@ -4,6 +4,7 @@
 // Falha o build se o Supabase não responder (a produção fica no último deploy bom).
 import fs from 'fs';
 import { splitGrid, renderGrid, stripComments } from './lib/cards.mjs';
+import { splitSection, renderSection } from './lib/sites-section.mjs';
 
 const { SUPABASE_URL, SUPABASE_ANON_KEY, HUB_ALLOW_EMPTY } = process.env;
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error('SUPABASE_URL/SUPABASE_ANON_KEY ausentes no build');
@@ -55,3 +56,23 @@ if (stripComments(nextGrid) !== stripComments(grid)) {
   console.log('generate: index.html inalterado');
 }
 console.log('generate: slugs públicos =', projects.map(p => p.slug).join(','));
+
+// Seção "Sites desenvolvidos": view pública home_sites (só os marcados para a home, 5 colunas)
+const rs = await fetch(`${SUPABASE_URL}/rest/v1/home_sites?select=*&order=sort.asc.nullslast,name.asc`, {
+  headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+});
+if (!rs.ok) throw new Error(`Supabase (home_sites) respondeu ${rs.status}: ${await rs.text()}`);
+const sites = await rs.json();
+const html2 = fs.readFileSync(htmlPath, 'utf8');
+if (!sites.length) {
+  console.log('generate: nenhum site marcado para a home — seção mantida como está');
+} else {
+  const sec = splitSection(html2);
+  const next = renderSection(sites);
+  if (next !== sec.section) {
+    fs.writeFileSync(htmlPath, sec.before + next + sec.after);
+    console.log(`generate: seção Sites reescrita (${sites.length} sites)`);
+  } else {
+    console.log('generate: seção Sites inalterada');
+  }
+}

@@ -27,8 +27,8 @@ async function db(method, path, body, prefer = 'return=representation') {
   return t ? JSON.parse(t) : null;
 }
 
-async function storage(path, body) {
-  const r = await fetch(`${SUPABASE_URL}/storage/v1/${path}`, { method: 'POST', headers: SVC, body: JSON.stringify(body || {}) });
+async function storage(path, body, extra = {}) {
+  const r = await fetch(`${SUPABASE_URL}/storage/v1/${path}`, { method: 'POST', headers: { ...SVC, ...extra }, body: JSON.stringify(body || {}) });
   const t = await r.text();
   if (!r.ok) throw new HttpError(400, `storage: ${t}`);
   return t ? JSON.parse(t) : null;
@@ -47,7 +47,7 @@ const cents = v => { if (!Number.isInteger(v) || v < 0) throw new HttpError(400,
 const one = rows => { if (!rows?.length) throw new HttpError(404, 'não encontrado'); return rows[0]; };
 
 const PROJECT_FIELDS = ['slug', 'title', 'subtitle', 'category', 'year', 'client', 'role', 'thumbnail_url', 'cover_alt', 'gallery_urls', 'video_urls', 'tags', 'stack', 'url_official', 'url_vercel', 'url_repo', 'home_title', 'home_desc', 'home_tags', 'home_category', 'home_year', 'home_alt', 'home_parallax', 'home_img_style', 'visible', 'featured', 'sort_order'];
-const SITE_FIELDS = ['name', 'client', 'category', 'platform', 'vercel_project', 'vercel_url', 'official_url', 'reference_url', 'vercel_state', 'http_vercel', 'http_official', 'checked_at', 'source_note', 'source_status', 'notes'];
+const SITE_FIELDS = ['name', 'client', 'category', 'platform', 'vercel_project', 'vercel_url', 'official_url', 'reference_url', 'vercel_state', 'http_vercel', 'http_official', 'checked_at', 'source_note', 'source_status', 'notes', 'show_home', 'home_order', 'home_label', 'home_shot'];
 const pick = (o, keys) => Object.fromEntries(Object.entries(o || {}).filter(([k]) => keys.includes(k)));
 
 const actions = {
@@ -149,9 +149,23 @@ const actions = {
 
   // ── sites desenvolvidos (catálogo privado) ──
   'sites.list': () => db('GET', 'sites?select=*,project:projects(slug,visible)&order=category.asc.nullslast,name.asc'),
-  'sites.update': ({ id, patch }) => db('PATCH', `sites?id=${eq(id)}`, pick(patch, SITE_FIELDS)).then(one),
+  'sites.update': async ({ id, patch }) => {
+    const p = pick(patch, SITE_FIELDS);
+    const site = one(await db('PATCH', `sites?id=${eq(id)}`, p));
+    const touchesHome = ['show_home', 'home_order', 'home_label', 'home_shot', 'name', 'official_url', 'vercel_url'].some(k => k in p);
+    return touchesHome && (site.show_home || 'show_home' in p) ? { site, publish: await publish('sites.update') } : { site };
+  },
+  // ordem da seção da home: lista de ids na nova ordem
+  'sites.reorder_home': async ({ ids }) => {
+    if (!Array.isArray(ids) || !ids.length) throw new HttpError(400, 'ids: lista na nova ordem');
+    for (const [i, id] of ids.entries()) await db('PATCH', `sites?id=${eq(id)}`, { home_order: (i + 1) * 10, show_home: true }, 'return=minimal');
+    return { order: ids, publish: await publish('sites.reorder_home') };
+  },
   // excluir tira só da lista do hub; não mexe no projeto da Vercel nem no site no ar
-  'sites.delete': ({ id }) => db('DELETE', `sites?id=${eq(id)}`).then(one),
+  'sites.delete': async ({ id }) => {
+    const gone = one(await db('DELETE', `sites?id=${eq(id)}`));
+    return gone.show_home ? { ...gone, publish: await publish('sites.delete') } : gone;
+  },
   // upsert por `key` (importação idempotente)
   'sites.import': async ({ sites }) => {
     if (!Array.isArray(sites) || !sites.length) throw new HttpError(400, 'sites: lista');
@@ -183,7 +197,7 @@ const actions = {
   'sites.delete_many': async ({ ids }) => {
     if (!Array.isArray(ids) || !ids.length) throw new HttpError(400, 'ids: lista');
     const gone = await db('DELETE', `sites?id=in.(${ids.map(encodeURIComponent).join(',')})`);
-    return { deleted: gone.length };
+    return { deleted: gone.length, ...(gone.some(g => g.show_home) ? { publish: await publish('sites.delete_many') } : {}) };
   },
 
   // ── assets (storage) ──
@@ -193,11 +207,11 @@ const actions = {
     return db('GET', `assets?select=*,project:projects(slug,title)&order=created_at.desc${t ? `&or=(title.ilike.*${encodeURIComponent(t)}*,tags.cs.{${encodeURIComponent(t)}})` : ''}`);
   },
   // 1) pede URL de upload assinada  2) cliente faz PUT do arquivo  3) assets.create registra (bucket privado)
-  'upload.sign': async ({ bucket, path }) => {
+  'upload.sign': async ({ bucket, path, upsert }) => {
     if (!['public-media', 'private-assets'].includes(bucket)) throw new HttpError(400, 'bucket inválido');
     need({ path }, 'path');
     const safePath = String(path).replace(/[^a-zA-Z0-9._/-]+/g, '-').replace(/^\/+/, '');
-    const j = await storage(`object/upload/sign/${bucket}/${safePath}`, {});
+    const j = await storage(`object/upload/sign/${bucket}/${safePath}`, {}, upsert ? { 'x-upsert': 'true' } : {});
     return { bucket, path: safePath, upload_url: `${SUPABASE_URL}/storage/v1${j.url}`, public_url: bucket === 'public-media' ? `${SUPABASE_URL}/storage/v1/object/public/public-media/${safePath}` : null };
   },
   'assets.create': ({ asset }) => {

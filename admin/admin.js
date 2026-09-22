@@ -207,10 +207,76 @@ function projectForm(p) {
 const CAT_LABEL = { freelance: 'Freelance', cliente: 'Cliente', 'a-formula': 'A Fórmula', lab: 'Lab', pessoal: 'Pessoal', 'sem-nota': 'Sem nota' };
 const httpPill = code => !code ? '' : code >= 200 && code < 400 ? `<span class="pill ok">${code}</span>` : code === 401 || code === 403 ? `<span class="pill warn" title="protegido (login da Vercel)">${code}</span>` : `<span class="pill bad">${code}</span>`;
 const siteState = { cat: 'todos', q: '', sel: new Set() };
+const siteUrl = s => s.official_url || s.vercel_url;
+
+// print -> 3 WebP (480/720/960) no navegador, sem servidor de imagem
+async function uploadShot(file, slug) {
+  const img = await createImageBitmap(file);
+  let base = null;
+  for (const w of [480, 720, 960]) {
+    const h = Math.round(img.height * w / img.width);
+    const c = Object.assign(document.createElement('canvas'), { width: w, height: h });
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    const blob = await new Promise(r => c.toBlob(r, 'image/webp', 0.8));
+    const s = await api('upload.sign', { bucket: 'public-media', path: `sites/${slug}-${w}.webp`, upsert: true });
+    const r = await fetch(s.upload_url, { method: 'PUT', headers: { 'content-type': 'image/webp', 'x-upsert': 'true' }, body: blob });
+    if (!r.ok) throw new Error('upload do print falhou: ' + r.status);
+    base = s.public_url.replace(/-\d+\.webp$/, '');
+  }
+  return base;
+}
+const slugOf = s => (s.vercel_project || s.key.replace(/^(site|vercel):/, '')).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 async function sites() {
   const all = await api('sites.list');
   const cats = ['todos', ...new Set(all.map(s => s.category || 'sem-nota'))];
+  const homeList = () => all.filter(s => s.show_home).sort((a, b) => (a.home_order ?? 1e9) - (b.home_order ?? 1e9));
+
+  const renderHome = () => {
+    const h = homeList();
+    $('#homeCount').textContent = `${h.length} no carrossel`;
+    $('#homeRows').innerHTML = h.length ? h.map((s, i) => `
+      <div class="home-row" draggable="true" data-id="${s.id}">
+        <span class="handle" title="Arrastar">⋮⋮</span>
+        <span class="home-n">${String(i + 1).padStart(2, '0')}</span>
+        ${s.home_shot ? `<img class="home-shot" src="${esc(s.home_shot)}-480.webp" alt="">` : '<span class="home-shot empty">sem print</span>'}
+        <div class="home-info"><strong>${esc(s.name)}</strong><input class="home-label" data-label value="${esc(s.home_label || '')}" placeholder="Texto do card (ex.: E-commerce — Shopify)"><span class="muted">${esc((siteUrl(s) || '').replace(/^https?:\/\//, ''))}</span></div>
+        <div class="home-act">
+          <label class="btn sm">Trocar print<input type="file" accept="image/*" data-shot hidden></label>
+          <button class="btn sm ghost" data-home-off>Tirar da home</button>
+        </div>
+      </div>`).join('') : '<p class="empty">Nenhum site na home. Use "Na home" nos cards abaixo.</p>';
+    const rows = $('#homeRows'); let dragged = null;
+    rows.ondragstart = e => { dragged = e.target.closest('.home-row'); dragged?.classList.add('dragging'); };
+    rows.ondragend = () => { dragged?.classList.remove('dragging'); };
+    rows.ondragover = e => {
+      e.preventDefault(); const r = e.target.closest('.home-row'); if (!r || !dragged || r === dragged) return;
+      const after = e.clientY > r.getBoundingClientRect().top + r.offsetHeight / 2;
+      rows.insertBefore(dragged, after ? r.nextSibling : r); $('#saveHomeOrder').hidden = false;
+    };
+    $$('#homeRows [data-label]').forEach(inp => inp.onchange = async () => {
+      const s = all.find(x => x.id === inp.closest('.home-row').dataset.id);
+      try { const d = await api('sites.update', { id: s.id, patch: { home_label: inp.value.trim() || null } }); s.home_label = inp.value.trim(); toast('Texto salvo' + published(d)); } catch (e) { toast(e.message, true); }
+    });
+    $$('#homeRows [data-shot]').forEach(inp => inp.onchange = async () => {
+      const s = all.find(x => x.id === inp.closest('.home-row').dataset.id); const f = inp.files[0]; if (!f) return;
+      try { toast('Enviando print…'); const base = await uploadShot(f, slugOf(s)); const d = await api('sites.update', { id: s.id, patch: { home_shot: base } }); s.home_shot = base; toast('Print trocado' + published(d)); renderHome(); } catch (e) { toast(e.message, true); }
+    });
+    $$('#homeRows [data-home-off]').forEach(b => b.onclick = () => setHome([b.closest('.home-row').dataset.id], false));
+  };
+
+  const setHome = async (ids, on) => {
+    try {
+      let last = Math.max(0, ...homeList().map(s => s.home_order || 0)), d;
+      for (const id of ids) {
+        const s = all.find(x => x.id === id); if (!s || !!s.show_home === on) continue;
+        const patch = on ? { show_home: true, home_order: (last += 10) } : { show_home: false };
+        d = await api('sites.update', { id, patch }); Object.assign(s, patch);
+      }
+      siteState.sel.clear(); toast((on ? 'Na home' : 'Fora da home') + published(d)); render(); renderHome();
+    } catch (e) { toast(e.message, true); }
+  };
+
   const render = () => {
     const q = siteState.q.toLowerCase();
     const list = all.filter(s => (siteState.cat === 'todos' || (s.category || 'sem-nota') === siteState.cat)
@@ -226,65 +292,64 @@ async function sites() {
         </div>
         ${s.notes ? `<p class="muted" style="margin:0;font-size:.82rem">${esc(s.notes)}</p>` : ''}
         <div class="row between">
-          ${s.project ? `<span class="pill ok">no portfólio: ${esc(s.project.slug)}${s.project.visible ? '' : ' (oculto)'}</span>` : '<button class="btn sm" data-to-project>→ Portfólio</button>'}
+          ${s.show_home ? '<button class="btn sm on" data-home-toggle>✓ Na home</button>' : '<button class="btn sm" data-home-toggle>Na home</button>'}
           <button class="btn sm danger" data-del-site>Excluir</button>
         </div>
       </article>`).join('') : '<p class="empty">Nenhum site com esse filtro.</p>';
     $('#siteCount').textContent = `${list.length} de ${all.length}`;
     siteState.visible = list.map(x => x.id);
     $$('#siteList [data-pick]').forEach(cb => cb.onchange = () => { const id = cb.closest('.site').dataset.id; cb.checked ? siteState.sel.add(id) : siteState.sel.delete(id); bulkBar(); });
-    $$('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
     bulkBar();
+    $$('#siteList [data-home-toggle]').forEach(b => b.onclick = () => { const s = all.find(x => x.id === b.closest('.site').dataset.id); setHome([s.id], !s.show_home); });
     $$('#siteList [data-del-site]').forEach(b => b.onclick = async () => {
       const s = all.find(x => x.id === b.closest('.site').dataset.id);
-      if (!confirm(`Excluir "${s.name}" da lista?\n\nSó sai do hub — o site e o projeto na Vercel não são tocados.`)) return;
-      try { await api('sites.delete', { id: s.id }); all.splice(all.indexOf(s), 1); siteState.sel.delete(s.id); toast('Excluído da lista'); render(); } catch (e) { toast(e.message, true); }
-    });
-    $$('#siteList [data-to-project]').forEach(b => b.onclick = async () => {
-      const s = all.find(x => x.id === b.closest('.site').dataset.id);
-      try { const d = await api('sites.to_project', { id: s.id }); s.project = { slug: d.project.slug, visible: false }; toast(`Projeto "${d.project.slug}" criado oculto — complete capa e textos em Projetos`); render(); } catch (e) { toast(e.message, true); }
+      if (!confirm(`Excluir "${s.name}" da lista?${s.show_home ? '\n\nEle também sai da home.' : ''}\n\nSó sai do hub — o site e o projeto na Vercel não são tocados.`)) return;
+      try { const d = await api('sites.delete', { id: s.id }); all.splice(all.indexOf(s), 1); siteState.sel.delete(s.id); toast('Excluído da lista' + published(d)); render(); renderHome(); } catch (e) { toast(e.message, true); }
     });
   };
   const bulkBar = () => {
-    const n = siteState.sel.size, bar = $('#bulk');
-    bar.hidden = false;
+    const n = siteState.sel.size;
+    $('#bulk').hidden = false;
     $('#bulkCount').textContent = n ? `${n} selecionado${n > 1 ? 's' : ''}` : 'Nenhum selecionado';
-    $('#bulkPortfolio').disabled = $('#bulkDelete').disabled = $('#bulkClear').disabled = !n;
-    $('#bulkPortfolio').textContent = `→ Portfólio${n ? ` (${n})` : ''}`;
+    $('#bulkHomeOn').disabled = $('#bulkHomeOff').disabled = $('#bulkDelete').disabled = $('#bulkClear').disabled = !n;
+    $('#bulkHomeOn').textContent = `Na home${n ? ` (${n})` : ''}`;
+    $('#bulkHomeOff').textContent = `Tirar da home${n ? ` (${n})` : ''}`;
     $('#bulkDelete').textContent = `Excluir${n ? ` (${n})` : ''}`;
     $$('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
   };
+
   $('#view').innerHTML = `
     <div class="row between"><h2>Sites desenvolvidos</h2><span class="muted" id="siteCount"></span></div>
-    <p class="muted">Tudo que eu fiz, num lugar só. "→ Portfólio" cria um projeto oculto com os links; "Excluir" tira só desta lista.</p>
+    <section class="card form-grid">
+      <div class="row between"><h3>Na home agora</h3><div class="row"><span class="muted" id="homeCount"></span><button class="btn sm primary" id="saveHomeOrder" hidden>Salvar ordem</button></div></div>
+      <p class="muted" style="margin:0">É o carrossel "Sites desenvolvidos" da home, nesta ordem. Arraste ⋮⋮ para reordenar; o texto e o print se editam aqui. Toda mudança publica sozinha (~1 min).</p>
+      <div id="homeRows" class="home-rows"></div>
+    </section>
+    <h3 style="margin-top:.5rem">Todos os sites</h3>
     <div class="filters">${cats.map(c => `<button class="chip ${c === siteState.cat ? 'active' : ''}" data-cat="${esc(c)}">${esc(c === 'todos' ? 'Todos' : CAT_LABEL[c] || c)} (${c === 'todos' ? all.length : all.filter(s => (s.category || 'sem-nota') === c).length})</button>`).join('')}</div>
     <input id="siteSearch" placeholder="Buscar por nome, cliente ou link" value="${esc(siteState.q)}">
     <div class="bulk card" id="bulk" hidden>
       <div class="row"><span id="bulkCount"></span><button class="btn sm ghost" id="bulkAll">Selecionar os filtrados</button><button class="btn sm ghost" id="bulkClear">Limpar</button></div>
-      <div class="row"><button class="btn sm" id="bulkPortfolio">→ Portfólio</button><button class="btn sm danger" id="bulkDelete">Excluir</button></div>
+      <div class="row"><button class="btn sm" id="bulkHomeOn">Na home</button><button class="btn sm ghost" id="bulkHomeOff">Tirar da home</button><button class="btn sm danger" id="bulkDelete">Excluir</button></div>
     </div>
     <div class="sites-grid" id="siteList"></div>`;
+  $('#saveHomeOrder').onclick = async () => {
+    const ids = $$('#homeRows .home-row').map(r => r.dataset.id);
+    try { const d = await api('sites.reorder_home', { ids }); ids.forEach((id, i) => { const s = all.find(x => x.id === id); if (s) s.home_order = (i + 1) * 10; }); $('#saveHomeOrder').hidden = true; toast('Ordem salva' + published(d)); renderHome(); } catch (e) { toast(e.message, true); }
+  };
   $('#bulkAll').onclick = () => { siteState.visible.forEach(id => siteState.sel.add(id)); render(); };
   $('#bulkClear').onclick = () => { siteState.sel.clear(); render(); };
+  $('#bulkHomeOn').onclick = () => setHome([...siteState.sel], true);
+  $('#bulkHomeOff').onclick = () => setHome([...siteState.sel], false);
   $('#bulkDelete').onclick = async () => {
     const ids = [...siteState.sel]; const names = all.filter(x => ids.includes(x.id)).map(x => '• ' + x.name);
     const more = names.length > 15 ? `\n… e mais ${names.length - 15}` : '';
     if (!confirm(`Excluir ${ids.length} site(s) da lista?\n\n${names.slice(0, 15).join('\n')}${more}\n\nSó sai do hub — sites e projetos na Vercel não são tocados.`)) return;
-    try { const d = await api('sites.delete_many', { ids }); for (const id of ids) { const i = all.findIndex(x => x.id === id); if (i >= 0) all.splice(i, 1); } siteState.sel.clear(); toast(`${d.deleted} excluído(s) da lista`); render(); } catch (e) { toast(e.message, true); }
-  };
-  $('#bulkPortfolio').onclick = async () => {
-    const ids = [...siteState.sel].filter(id => !all.find(x => x.id === id)?.project);
-    if (!ids.length) { toast('Os selecionados já estão no portfólio'); return; }
-    if (!confirm(`Criar ${ids.length} projeto(s) OCULTO(S) no portfólio?\n\nEles só aparecem no site depois que você completar capa/textos em Projetos e ligar o Visível.`)) return;
-    try {
-      const d = await api('sites.to_project_many', { ids });
-      for (const r of d.results) if (r.ok) { const x = all.find(y => y.id === r.id); if (x) x.project = { slug: r.slug, visible: false }; }
-      const fails = d.results.filter(r => !r.ok);
-      siteState.sel.clear(); toast(`${d.created} projeto(s) criado(s) oculto(s)${fails.length ? ` · ${fails.length} falharam: ${fails[0].error}` : ''}`, !!fails.length); render();
-    } catch (e) { toast(e.message, true); }
+    try { const d = await api('sites.delete_many', { ids }); for (const id of ids) { const i = all.findIndex(x => x.id === id); if (i >= 0) all.splice(i, 1); } siteState.sel.clear(); toast(`${d.deleted} excluído(s) da lista` + published(d)); render(); renderHome(); } catch (e) { toast(e.message, true); }
   };
   $$('.chip').forEach(b => b.onclick = () => { siteState.cat = b.dataset.cat; $$('.chip').forEach(x => x.classList.toggle('active', x === b)); render(); });
   $('#siteSearch').oninput = e => { siteState.q = e.target.value; render(); };
+  renderHome();
   render();
 }
 
