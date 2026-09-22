@@ -206,7 +206,7 @@ function projectForm(p) {
 // ── Sites desenvolvidos ───────────────────────────────
 const CAT_LABEL = { freelance: 'Freelance', cliente: 'Cliente', 'a-formula': 'A Fórmula', lab: 'Lab', pessoal: 'Pessoal', 'sem-nota': 'Sem nota' };
 const httpPill = code => !code ? '' : code >= 200 && code < 400 ? `<span class="pill ok">${code}</span>` : code === 401 || code === 403 ? `<span class="pill warn" title="protegido (login da Vercel)">${code}</span>` : `<span class="pill bad">${code}</span>`;
-const siteState = { cat: 'todos', q: '' };
+const siteState = { cat: 'todos', q: '', sel: new Set() };
 
 async function sites() {
   const all = await api('sites.list');
@@ -217,7 +217,7 @@ async function sites() {
       && (!q || [s.name, s.client, s.vercel_url, s.official_url, s.vercel_project].some(v => (v || '').toLowerCase().includes(q))));
     $('#siteList').innerHTML = list.length ? list.map(s => `
       <article class="card site" data-id="${s.id}">
-        <div class="row between"><h3>${esc(s.name)}</h3><span class="pill">${esc(CAT_LABEL[s.category] || s.category || 'Sem nota')}</span></div>
+        <div class="row between"><label class="pick"><input type="checkbox" data-pick ${siteState.sel.has(s.id) ? 'checked' : ''}><h3>${esc(s.name)}</h3></label><span class="pill">${esc(CAT_LABEL[s.category] || s.category || 'Sem nota')}</span></div>
         ${s.client ? `<span class="muted">${esc(s.client)}</span>` : ''}
         <div class="links">
           ${s.official_url ? `<div>Oficial: <a href="${esc(s.official_url)}" target="_blank" rel="noopener noreferrer">${esc(s.official_url.replace(/^https?:\/\//, ''))}</a> ${httpPill(s.http_official)}</div>` : ''}
@@ -231,22 +231,58 @@ async function sites() {
         </div>
       </article>`).join('') : '<p class="empty">Nenhum site com esse filtro.</p>';
     $('#siteCount').textContent = `${list.length} de ${all.length}`;
+    siteState.visible = list.map(x => x.id);
+    $('#siteList [data-pick]').forEach(cb => cb.onchange = () => { const id = cb.closest('.site').dataset.id; cb.checked ? siteState.sel.add(id) : siteState.sel.delete(id); bulkBar(); });
+    $('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
+    bulkBar();
     $$('#siteList [data-del-site]').forEach(b => b.onclick = async () => {
       const s = all.find(x => x.id === b.closest('.site').dataset.id);
       if (!confirm(`Excluir "${s.name}" da lista?\n\nSó sai do hub — o site e o projeto na Vercel não são tocados.`)) return;
-      try { await api('sites.delete', { id: s.id }); all.splice(all.indexOf(s), 1); toast('Excluído da lista'); render(); } catch (e) { toast(e.message, true); }
+      try { await api('sites.delete', { id: s.id }); all.splice(all.indexOf(s), 1); siteState.sel.delete(s.id); toast('Excluído da lista'); render(); } catch (e) { toast(e.message, true); }
     });
     $$('#siteList [data-to-project]').forEach(b => b.onclick = async () => {
       const s = all.find(x => x.id === b.closest('.site').dataset.id);
       try { const d = await api('sites.to_project', { id: s.id }); s.project = { slug: d.project.slug, visible: false }; toast(`Projeto "${d.project.slug}" criado oculto — complete capa e textos em Projetos`); render(); } catch (e) { toast(e.message, true); }
     });
   };
+  const bulkBar = () => {
+    const n = siteState.sel.size, bar = $('#bulk');
+    bar.hidden = false;
+    $('#bulkCount').textContent = n ? `${n} selecionado${n > 1 ? 's' : ''}` : 'Nenhum selecionado';
+    $('#bulkPortfolio').disabled = $('#bulkDelete').disabled = $('#bulkClear').disabled = !n;
+    $('#bulkPortfolio').textContent = `→ Portfólio${n ? ` (${n})` : ''}`;
+    $('#bulkDelete').textContent = `Excluir${n ? ` (${n})` : ''}`;
+    $('#siteList .site').forEach(card => card.classList.toggle('picked', siteState.sel.has(card.dataset.id)));
+  };
   $('#view').innerHTML = `
     <div class="row between"><h2>Sites desenvolvidos</h2><span class="muted" id="siteCount"></span></div>
     <p class="muted">Tudo que eu fiz, num lugar só. "→ Portfólio" cria um projeto oculto com os links; "Excluir" tira só desta lista.</p>
     <div class="filters">${cats.map(c => `<button class="chip ${c === siteState.cat ? 'active' : ''}" data-cat="${esc(c)}">${esc(c === 'todos' ? 'Todos' : CAT_LABEL[c] || c)} (${c === 'todos' ? all.length : all.filter(s => (s.category || 'sem-nota') === c).length})</button>`).join('')}</div>
     <input id="siteSearch" placeholder="Buscar por nome, cliente ou link" value="${esc(siteState.q)}">
+    <div class="bulk card" id="bulk" hidden>
+      <div class="row"><span id="bulkCount"></span><button class="btn sm ghost" id="bulkAll">Selecionar os filtrados</button><button class="btn sm ghost" id="bulkClear">Limpar</button></div>
+      <div class="row"><button class="btn sm" id="bulkPortfolio">→ Portfólio</button><button class="btn sm danger" id="bulkDelete">Excluir</button></div>
+    </div>
     <div class="sites-grid" id="siteList"></div>`;
+  $('#bulkAll').onclick = () => { siteState.visible.forEach(id => siteState.sel.add(id)); render(); };
+  $('#bulkClear').onclick = () => { siteState.sel.clear(); render(); };
+  $('#bulkDelete').onclick = async () => {
+    const ids = [...siteState.sel]; const names = all.filter(x => ids.includes(x.id)).map(x => '• ' + x.name);
+    const more = names.length > 15 ? `\n… e mais ${names.length - 15}` : '';
+    if (!confirm(`Excluir ${ids.length} site(s) da lista?\n\n${names.slice(0, 15).join('\n')}${more}\n\nSó sai do hub — sites e projetos na Vercel não são tocados.`)) return;
+    try { const d = await api('sites.delete_many', { ids }); for (const id of ids) { const i = all.findIndex(x => x.id === id); if (i >= 0) all.splice(i, 1); } siteState.sel.clear(); toast(`${d.deleted} excluído(s) da lista`); render(); } catch (e) { toast(e.message, true); }
+  };
+  $('#bulkPortfolio').onclick = async () => {
+    const ids = [...siteState.sel].filter(id => !all.find(x => x.id === id)?.project);
+    if (!ids.length) { toast('Os selecionados já estão no portfólio'); return; }
+    if (!confirm(`Criar ${ids.length} projeto(s) OCULTO(S) no portfólio?\n\nEles só aparecem no site depois que você completar capa/textos em Projetos e ligar o Visível.`)) return;
+    try {
+      const d = await api('sites.to_project_many', { ids });
+      for (const r of d.results) if (r.ok) { const x = all.find(y => y.id === r.id); if (x) x.project = { slug: r.slug, visible: false }; }
+      const fails = d.results.filter(r => !r.ok);
+      siteState.sel.clear(); toast(`${d.created} projeto(s) criado(s) oculto(s)${fails.length ? ` · ${fails.length} falharam: ${fails[0].error}` : ''}`, !!fails.length); render();
+    } catch (e) { toast(e.message, true); }
+  };
   $$('.chip').forEach(b => b.onclick = () => { siteState.cat = b.dataset.cat; $$('.chip').forEach(x => x.classList.toggle('active', x === b)); render(); });
   $('#siteSearch').oninput = e => { siteState.q = e.target.value; render(); };
   render();

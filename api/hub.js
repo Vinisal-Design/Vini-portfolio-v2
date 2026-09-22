@@ -163,10 +163,27 @@ const actions = {
   'sites.to_project': async ({ id }) => {
     const s = one(await db('GET', `sites?id=${eq(id)}&select=*`));
     if (s.project_id) throw new HttpError(409, 'este site já tem projeto no portfólio');
-    const slug = (s.vercel_project || s.key).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const base = (s.vercel_project || s.key.replace(/^(site|vercel):/, '')).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const taken = new Set((await db('GET', `projects?select=slug&slug=like.${encodeURIComponent(base)}*`)).map(p => p.slug));
+    let slug = base; for (let n = 2; taken.has(slug); n++) slug = `${base}-${n}`;
     const project = one(await db('POST', 'projects', { slug, title: s.name, client: s.client, url_vercel: s.vercel_url, url_official: s.official_url, visible: false, sort_order: 9990 }));
     await db('PATCH', `sites?id=${eq(id)}`, { project_id: project.id }, 'return=minimal');
     return { project };
+  },
+  // em lote: cada item é independente; devolve o resultado de cada id
+  'sites.to_project_many': async ({ ids }) => {
+    if (!Array.isArray(ids) || !ids.length) throw new HttpError(400, 'ids: lista');
+    const results = [];
+    for (const id of ids) {
+      try { results.push({ id, ok: true, slug: (await actions['sites.to_project']({ id })).project.slug }); }
+      catch (e) { results.push({ id, ok: false, error: e.message }); }
+    }
+    return { results, created: results.filter(r => r.ok).length };
+  },
+  'sites.delete_many': async ({ ids }) => {
+    if (!Array.isArray(ids) || !ids.length) throw new HttpError(400, 'ids: lista');
+    const gone = await db('DELETE', `sites?id=in.(${ids.map(encodeURIComponent).join(',')})`);
+    return { deleted: gone.length };
   },
 
   // ── assets (storage) ──
