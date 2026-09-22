@@ -50,7 +50,7 @@ $('#loginForm').addEventListener('submit', async e => {
 $('#logout').addEventListener('click', async () => { await sb.auth.signOut(); showLogin(); });
 
 // ── Navegação ─────────────────────────────────────────
-const views = { dashboard, projects, finance, assets };
+const views = { dashboard, projects, sites, finance, assets };
 function go(tab) {
   if (!views[tab]) tab = 'dashboard';
   location.hash = tab;
@@ -201,6 +201,55 @@ function projectForm(p) {
       dlg.close(); toast('Salvo' + published(d)); projects();
     } catch (err) { $('#pMsg').textContent = err.message; }
   };
+}
+
+// ── Sites desenvolvidos ───────────────────────────────
+const CAT_LABEL = { freelance: 'Freelance', cliente: 'Cliente', 'a-formula': 'A Fórmula', lab: 'Lab', pessoal: 'Pessoal', 'sem-nota': 'Sem nota' };
+const httpPill = code => !code ? '' : code >= 200 && code < 400 ? `<span class="pill ok">${code}</span>` : code === 401 || code === 403 ? `<span class="pill warn" title="protegido (login da Vercel)">${code}</span>` : `<span class="pill bad">${code}</span>`;
+const siteState = { cat: 'todos', q: '' };
+
+async function sites() {
+  const all = await api('sites.list');
+  const cats = ['todos', ...new Set(all.map(s => s.category || 'sem-nota'))];
+  const render = () => {
+    const q = siteState.q.toLowerCase();
+    const list = all.filter(s => (siteState.cat === 'todos' || (s.category || 'sem-nota') === siteState.cat)
+      && (!q || [s.name, s.client, s.vercel_url, s.official_url, s.vercel_project].some(v => (v || '').toLowerCase().includes(q))));
+    $('#siteList').innerHTML = list.length ? list.map(s => `
+      <article class="card site" data-id="${s.id}">
+        <div class="row between"><h3>${esc(s.name)}</h3><span class="pill">${esc(CAT_LABEL[s.category] || s.category || 'Sem nota')}</span></div>
+        ${s.client ? `<span class="muted">${esc(s.client)}</span>` : ''}
+        <div class="links">
+          ${s.official_url ? `<div>Oficial: <a href="${esc(s.official_url)}" target="_blank" rel="noopener noreferrer">${esc(s.official_url.replace(/^https?:\/\//, ''))}</a> ${httpPill(s.http_official)}</div>` : ''}
+          ${s.vercel_url ? `<div>Vercel: <a href="${esc(s.vercel_url)}" target="_blank" rel="noopener noreferrer">${esc(s.vercel_url.replace(/^https?:\/\//, ''))}</a> ${httpPill(s.http_vercel)}${s.vercel_state && s.vercel_state !== 'READY' ? ` <span class="pill bad" title="estado do último deploy de produção">${esc(s.vercel_state)}</span>` : ''}</div>` : ''}
+          ${s.reference_url ? `<div class="muted">Site original do cliente: <a href="${esc(s.reference_url)}" target="_blank" rel="noopener noreferrer">${esc(s.reference_url.replace(/^https?:\/\//, ''))}</a></div>` : ''}
+        </div>
+        ${s.notes ? `<p class="muted" style="margin:0;font-size:.82rem">${esc(s.notes)}</p>` : ''}
+        <div class="row between">
+          ${s.project ? `<span class="pill ok">no portfólio: ${esc(s.project.slug)}${s.project.visible ? '' : ' (oculto)'}</span>` : '<button class="btn sm" data-to-project>→ Portfólio</button>'}
+          <button class="btn sm danger" data-del-site>Excluir</button>
+        </div>
+      </article>`).join('') : '<p class="empty">Nenhum site com esse filtro.</p>';
+    $('#siteCount').textContent = `${list.length} de ${all.length}`;
+    $$('#siteList [data-del-site]').forEach(b => b.onclick = async () => {
+      const s = all.find(x => x.id === b.closest('.site').dataset.id);
+      if (!confirm(`Excluir "${s.name}" da lista?\n\nSó sai do hub — o site e o projeto na Vercel não são tocados.`)) return;
+      try { await api('sites.delete', { id: s.id }); all.splice(all.indexOf(s), 1); toast('Excluído da lista'); render(); } catch (e) { toast(e.message, true); }
+    });
+    $$('#siteList [data-to-project]').forEach(b => b.onclick = async () => {
+      const s = all.find(x => x.id === b.closest('.site').dataset.id);
+      try { const d = await api('sites.to_project', { id: s.id }); s.project = { slug: d.project.slug, visible: false }; toast(`Projeto "${d.project.slug}" criado oculto — complete capa e textos em Projetos`); render(); } catch (e) { toast(e.message, true); }
+    });
+  };
+  $('#view').innerHTML = `
+    <div class="row between"><h2>Sites desenvolvidos</h2><span class="muted" id="siteCount"></span></div>
+    <p class="muted">Tudo que eu fiz, num lugar só. "→ Portfólio" cria um projeto oculto com os links; "Excluir" tira só desta lista.</p>
+    <div class="filters">${cats.map(c => `<button class="chip ${c === siteState.cat ? 'active' : ''}" data-cat="${esc(c)}">${esc(c === 'todos' ? 'Todos' : CAT_LABEL[c] || c)} (${c === 'todos' ? all.length : all.filter(s => (s.category || 'sem-nota') === c).length})</button>`).join('')}</div>
+    <input id="siteSearch" placeholder="Buscar por nome, cliente ou link" value="${esc(siteState.q)}">
+    <div class="sites-grid" id="siteList"></div>`;
+  $$('.chip').forEach(b => b.onclick = () => { siteState.cat = b.dataset.cat; $$('.chip').forEach(x => x.classList.toggle('active', x === b)); render(); });
+  $('#siteSearch').oninput = e => { siteState.q = e.target.value; render(); };
+  render();
 }
 
 // ── Jobs & Financeiro ─────────────────────────────────

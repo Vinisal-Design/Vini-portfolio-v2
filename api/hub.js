@@ -47,6 +47,7 @@ const cents = v => { if (!Number.isInteger(v) || v < 0) throw new HttpError(400,
 const one = rows => { if (!rows?.length) throw new HttpError(404, 'não encontrado'); return rows[0]; };
 
 const PROJECT_FIELDS = ['slug', 'title', 'subtitle', 'category', 'year', 'client', 'role', 'thumbnail_url', 'cover_alt', 'gallery_urls', 'video_urls', 'tags', 'stack', 'url_official', 'url_vercel', 'url_repo', 'home_title', 'home_desc', 'home_tags', 'home_category', 'home_year', 'home_alt', 'home_parallax', 'home_img_style', 'visible', 'featured', 'sort_order'];
+const SITE_FIELDS = ['name', 'client', 'category', 'platform', 'vercel_project', 'vercel_url', 'official_url', 'reference_url', 'vercel_state', 'http_vercel', 'http_official', 'checked_at', 'source_note', 'source_status', 'notes'];
 const pick = (o, keys) => Object.fromEntries(Object.entries(o || {}).filter(([k]) => keys.includes(k)));
 
 const actions = {
@@ -144,6 +145,27 @@ const actions = {
     }
     for (const e of expenses) if (e.date.startsWith(ym)) add(e.currency, 'despesas_mes', e.amount_cents);
     return { hoje: today, por_moeda: by, jobs_em_andamento: jobs.filter(j => j.status === 'em_andamento').length, jobs_total: jobs.length };
+  },
+
+  // ── sites desenvolvidos (catálogo privado) ──
+  'sites.list': () => db('GET', 'sites?select=*,project:projects(slug,visible)&order=category.asc.nullslast,name.asc'),
+  'sites.update': ({ id, patch }) => db('PATCH', `sites?id=${eq(id)}`, pick(patch, SITE_FIELDS)).then(one),
+  // excluir tira só da lista do hub; não mexe no projeto da Vercel nem no site no ar
+  'sites.delete': ({ id }) => db('DELETE', `sites?id=${eq(id)}`).then(one),
+  // upsert por `key` (importação idempotente)
+  'sites.import': async ({ sites }) => {
+    if (!Array.isArray(sites) || !sites.length) throw new HttpError(400, 'sites: lista');
+    const rows = sites.map(s => { need(s, 'key', 'name'); return pick(s, ['key', ...SITE_FIELDS]); });
+    return { upserted: (await db('POST', 'sites?on_conflict=key', rows, 'resolution=merge-duplicates,return=representation')).length };
+  },
+  // cria um projeto OCULTO do portfólio a partir do site (sem imagens; completar no admin antes de mostrar)
+  'sites.to_project': async ({ id }) => {
+    const s = one(await db('GET', `sites?id=${eq(id)}&select=*`));
+    if (s.project_id) throw new HttpError(409, 'este site já tem projeto no portfólio');
+    const slug = (s.vercel_project || s.key).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const project = one(await db('POST', 'projects', { slug, title: s.name, client: s.client, url_vercel: s.vercel_url, url_official: s.official_url, visible: false, sort_order: 9990 }));
+    await db('PATCH', `sites?id=${eq(id)}`, { project_id: project.id }, 'return=minimal');
+    return { project };
   },
 
   // ── assets (storage) ──
