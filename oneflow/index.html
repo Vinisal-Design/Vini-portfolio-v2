@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Comercial — OneFlow × Vinicius Gayer</title>
+  <meta name="description" content="Proposta comercial — redesign, QA, SEO técnico e manutenção do site Webflow da OneFlow.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-bg: #0a0a0a;
+      --c-bg-elevated: #111111;
+      --c-bg-card: #161616;
+      --c-surface: #1a1a1a;
+      --c-border: rgba(255, 255, 255, 0.08);
+      --c-border-hover: rgba(255, 255, 255, 0.15);
+      --c-text: #f2f2f2;
+      --c-text-muted: #6d6d76;
+      --c-text-dim: rgba(255, 255, 255, 0.4);
+      --c-accent: #ff5b46;
+      --c-accent-glow: rgba(255, 91, 70, 0.15);
+      --c-accent-alt: #5553e2;
+      --c-white: #ffffff;
+      --f-display: "Space Grotesk", sans-serif;
+      --f-body: "Inter", sans-serif;
+      --fs-display: clamp(3rem, 8vw, 7rem);
+      --fs-h1: clamp(2.5rem, 5.5vw, 5.5rem);
+      --fs-h2: clamp(2rem, 4vw, 4rem);
+      --fs-h3: clamp(1.5rem, 2.5vw, 2rem);
+      --fs-h4: clamp(1.125rem, 1.5vw, 1.5rem);
+      --fs-body: clamp(0.875rem, 1vw, 1.125rem);
+      --fs-body-lg: clamp(1rem, 1.25vw, 1.375rem);
+      --fs-small: clamp(0.75rem, 0.85vw, 0.875rem);
+      --fs-micro: 0.6875rem;
+      --s-xs: 0.25rem; --s-sm: 0.5rem; --s-md: 1rem; --s-lg: 1.5rem;
+      --s-xl: 2rem; --s-2xl: 3rem; --s-3xl: 4rem; --s-4xl: 6rem; --s-5xl: 8rem;
+      --s-section: clamp(5rem, 10vh, 8rem);
+      --container-max: 1100px;
+      --container-pad: clamp(1.25rem, 4vw, 3rem);
+      --ease-signature: cubic-bezier(0, 0, 0.25, 1);
+      --ease-spring: cubic-bezier(0.19, 1, 0.22, 1);
+      --r-sm: 4px; --r-md: 8px; --r-lg: 16px; --r-pill: 50px; --r-full: 50%;
+    }
+    *, *:before, *:after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      color: var(--c-text);
+      background: var(--c-bg);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    strong { font-weight: 600; }
+    ::selection { background: var(--c-accent); color: var(--c-white); }
+    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    .noise {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 256px 256px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--s-lg) var(--container-pad);
+      mix-blend-mode: difference; color: var(--c-white);
+    }
+    .nav-logo-img { height: 2rem; width: auto; filter: invert(1); transition: opacity 0.3s ease; }
+    .nav-logo:hover .nav-logo-img { opacity: 0.7; }
+    .nav-status {
+      display: flex; align-items: center; gap: var(--s-sm);
+      font-size: var(--fs-micro); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6;
+    }
+    .nav-status-dot { width: 6px; height: 6px; background: #4ade80; border-radius: var(--r-full); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, to { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+    /* ── HERO ── */
+    .section { position: relative; padding: var(--s-section) 0; overflow: hidden; }
+    .section-hero { min-height: 88vh; display: flex; align-items: flex-end; padding-bottom: var(--s-3xl); }
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 91, 70, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(85, 83, 226, 0.06) 0%, transparent 50%),
+        var(--c-bg);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--c-border) 1px, transparent 1px), linear-gradient(90deg, var(--c-border) 1px, transparent 1px);
+      background-size: 80px 80px; opacity: 0.3;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+    }
+    .hero-content { position: relative; z-index: 1; width: 100%; }
+    .eyebrow { display: flex; align-items: center; gap: var(--s-sm); margin-bottom: var(--s-2xl); }
+    .eyebrow-dot { width: 6px; height: 6px; background: var(--c-accent); border-radius: var(--r-full); flex-shrink: 0; }
+    .eyebrow-text { font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-text-muted); }
+    .hero-title {
+      font-family: var(--f-display); font-size: var(--fs-display); font-weight: 700;
+      letter-spacing: -0.04em; line-height: 0.95; margin-bottom: var(--s-2xl);
+    }
+    .hero-title .accent { color: var(--c-accent); }
+    .hero-title-line { display: block; }
+    .hero-meta {
+      display: grid; grid-template-columns: 1fr; gap: var(--s-lg);
+      padding-top: var(--s-xl); border-top: 1px solid var(--c-border);
+    }
+    .hero-meta-item { display: flex; flex-direction: column; gap: var(--s-xs); }
+    .hero-meta-label { font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-text-muted); }
+    .hero-meta-value { font-family: var(--f-display); font-size: var(--fs-body-lg); font-weight: 500; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: var(--s-3xl); }
+    .section-title { font-family: var(--f-display); font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+    .section-desc { font-size: var(--fs-body-lg); color: var(--c-text-muted); line-height: 1.6; max-width: 620px; margin-top: var(--s-lg); }
+    .section-elevated { background: var(--c-bg-elevated); }
+    .subheading { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; letter-spacing: -0.01em; margin-bottom: var(--s-lg); }
+
+    /* ── TAGS / PILLS ── */
+    .tag {
+      display: inline-flex; font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; padding: var(--s-xs) var(--s-md);
+      border: 1px solid var(--c-border); border-radius: var(--r-pill); color: var(--c-text-muted);
+    }
+    .tag.accent { border-color: var(--c-accent); color: var(--c-accent); }
+    .tag-row { display: flex; gap: var(--s-sm); flex-wrap: wrap; margin-bottom: var(--s-lg); }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1px;
+      background: var(--c-border); border: 1px solid var(--c-border);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .card {
+      position: relative; background: var(--c-bg); padding: var(--s-xl);
+      display: flex; flex-direction: column; gap: var(--s-sm);
+      transition: background 0.4s var(--ease-signature);
+    }
+    .section-elevated .card { background: var(--c-bg-elevated); }
+    .card:hover { background: var(--c-bg-card); }
+    .card-number { font-family: var(--f-display); font-size: var(--fs-small); font-weight: 500; color: var(--c-accent); letter-spacing: 0.05em; }
+    .card-title { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; letter-spacing: -0.01em; }
+    .card-desc { font-size: var(--fs-small); color: var(--c-text-muted); line-height: 1.7; }
+    .card-line { width: 32px; height: 1px; background: var(--c-accent); margin-top: auto; transition: width 0.4s var(--ease-spring); }
+    .card:hover .card-line { width: 64px; }
+
+    /* ── PAGES GRID (compact) ── */
+    .pages-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1px;
+      background: var(--c-border); border: 1px solid var(--c-border);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .page-cell {
+      display: flex; align-items: baseline; gap: var(--s-md);
+      background: var(--c-bg-elevated); padding: var(--s-md) var(--s-lg);
+      transition: background 0.3s;
+    }
+    .page-cell:hover { background: var(--c-bg-card); }
+    .page-cell-index { font-family: var(--f-display); font-size: var(--fs-micro); color: var(--c-accent); letter-spacing: 0.05em; }
+    .page-cell-name { font-family: var(--f-display); font-size: var(--fs-body); font-weight: 500; }
+
+    /* ── SCENARIO CARDS ── */
+    .scenario { border-radius: var(--r-lg); border: 1px solid var(--c-border); background: var(--c-bg-card); padding: var(--s-xl); display: flex; flex-direction: column; gap: var(--s-md); transition: border-color 0.3s; }
+    .scenario:hover { border-color: var(--c-border-hover); }
+    .scenario.recommended { border-color: var(--c-accent); background: linear-gradient(180deg, rgba(255,91,70,0.06) 0%, var(--c-bg-card) 60%); }
+    .scenario-badge { display: inline-flex; align-self: flex-start; font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: var(--s-xs) var(--s-md); border-radius: var(--r-pill); background: var(--c-accent); color: var(--c-white); }
+    .scenario-badge.neutral { background: transparent; border: 1px solid var(--c-border); color: var(--c-text-muted); }
+    .scenario-title { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; }
+    .scenario-desc { font-size: var(--fs-small); color: var(--c-text-muted); line-height: 1.7; flex-grow: 1; }
+    .scenario-price { font-family: var(--f-display); font-size: var(--fs-body-lg); font-weight: 600; color: var(--c-text); padding-top: var(--s-md); border-top: 1px solid var(--c-border); }
+    .scenarios-grid { display: grid; grid-template-columns: 1fr; gap: var(--s-lg); }
+
+    /* ── PRICE TABLE ── */
+    .price-table { width: 100%; border-collapse: collapse; }
+    .price-table-wrap { border: 1px solid var(--c-border); border-radius: var(--r-lg); overflow-x: auto; }
+    .price-table th, .price-table td { padding: var(--s-lg); text-align: left; border-bottom: 1px solid var(--c-border); font-size: var(--fs-small); }
+    .price-table th { font-family: var(--f-display); font-size: var(--fs-micro); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-text-muted); background: var(--c-bg-elevated); }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table td.price { font-family: var(--f-display); font-weight: 600; font-size: var(--fs-body); white-space: nowrap; }
+    .price-table tr.highlight td { background: rgba(255, 91, 70, 0.06); }
+    .price-table tr.highlight td.price { color: var(--c-accent); }
+    .price-note { font-size: var(--fs-micro); color: var(--c-text-muted); margin-top: var(--s-md); }
+
+    /* ── COMBO CARD ── */
+    .combo {
+      position: relative; border: 1px solid var(--c-accent); border-radius: var(--r-lg);
+      padding: var(--s-2xl); overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 120%, var(--c-accent-glow) 0%, transparent 70%),
+        var(--c-bg-card);
+      display: flex; flex-direction: column; gap: var(--s-md);
+    }
+    .combo-title { font-family: var(--f-display); font-size: var(--fs-h3); font-weight: 700; letter-spacing: -0.02em; }
+    .combo-price { font-family: var(--f-display); font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.03em; color: var(--c-accent); line-height: 1; }
+    .combo-price s { font-size: var(--fs-h4); color: var(--c-text-dim); font-weight: 500; margin-right: var(--s-sm); }
+    .combo-desc { color: var(--c-text-muted); font-size: var(--fs-small); max-width: 520px; }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; border-left: 1px solid var(--c-border); margin-left: var(--s-sm); }
+    .timeline-item { position: relative; padding: 0 0 var(--s-xl) var(--s-xl); }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item:before {
+      content: ""; position: absolute; left: -4px; top: 8px;
+      width: 7px; height: 7px; border-radius: var(--r-full); background: var(--c-accent);
+    }
+    .timeline-week { font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-accent); font-weight: 600; }
+    .timeline-title { font-family: var(--f-display); font-size: var(--fs-body-lg); font-weight: 600; margin-top: var(--s-xs); }
+    .timeline-desc { font-size: var(--fs-small); color: var(--c-text-muted); margin-top: var(--s-xs); max-width: 560px; }
+
+    /* ── CONDITIONS ── */
+    .cond-grid { display: grid; grid-template-columns: 1fr; gap: var(--s-xl); }
+    .cond-col { display: flex; flex-direction: column; gap: var(--s-md); }
+    .cond-col h3 { font-family: var(--f-display); font-size: var(--fs-h4); font-weight: 600; padding-bottom: var(--s-sm); border-bottom: 1px solid var(--c-border); }
+    .cond-col ul { list-style: none; display: flex; flex-direction: column; gap: var(--s-sm); }
+    .cond-col li { display: flex; gap: var(--s-sm); font-size: var(--fs-small); color: var(--c-text-muted); line-height: 1.6; }
+    .cond-col li:before { content: "—"; color: var(--c-accent); flex-shrink: 0; }
+    .cond-col.excluded li:before { content: "×"; color: var(--c-text-dim); }
+
+    /* ── CTA ── */
+    .section-cta { min-height: 65vh; display: flex; align-items: center; background: var(--c-bg-elevated); }
+    .cta-bg-fade { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% 100%, var(--c-accent-glow) 0%, transparent 70%); opacity: 0.5; }
+    .cta-content { position: relative; z-index: 1; }
+    .cta-title { font-family: var(--f-display); font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: var(--s-2xl); }
+    .cta-title .accent { color: var(--c-accent); }
+    .cta-title-line { display: block; }
+    .btn-big {
+      display: inline-flex; align-items: center; gap: var(--s-md);
+      font-family: var(--f-display); font-size: clamp(1.1rem, 2.5vw, 1.75rem); font-weight: 500;
+      padding: var(--s-lg) var(--s-2xl); border: 1px solid var(--c-border); border-radius: var(--r-pill);
+      transition: border-color 0.3s, background 0.3s, color 0.3s; margin-bottom: var(--s-2xl);
+    }
+    .btn-big:hover { border-color: var(--c-accent); background: var(--c-accent); color: var(--c-white); }
+    .btn-big svg { transition: transform 0.3s var(--ease-spring); }
+    .btn-big:hover svg { transform: translate(3px, -3px); }
+    .cta-social { display: flex; flex-wrap: wrap; gap: var(--s-md) var(--s-xl); }
+    .social-link { font-size: var(--fs-body); color: var(--c-text-muted); transition: color 0.3s; }
+    .social-link:hover { color: var(--c-accent); }
+
+    /* ── FOOTER ── */
+    .footer { padding: var(--s-xl) 0; border-top: 1px solid var(--c-border); }
+    .footer-inner { display: flex; flex-direction: column; gap: var(--s-md); align-items: center; text-align: center; }
+    .footer-copy { font-size: var(--fs-micro); color: var(--c-text-muted); }
+    .footer-logo-img { height: 2rem; width: auto; filter: invert(1); opacity: 0.6; transition: opacity 0.3s ease; }
+    .footer-logo:hover .footer-logo-img { opacity: 1; }
+
+    .handwritten { font-family: 'Caveat', cursive; color: var(--c-accent); font-size: 1.15em; }
+
+    /* ── REVEAL ── */
+    [data-reveal] { opacity: 0; transform: translateY(30px); }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); transition: opacity 1s var(--ease-signature), transform 1s var(--ease-signature); }
+
+    /* ── BREAKPOINTS (mobile-first) ── */
+    @media (min-width: 640px) {
+      .hero-meta { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .pages-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+    }
+    @media (min-width: 768px) {
+      .hero-meta { grid-template-columns: repeat(4, 1fr); }
+      .scenarios-grid { grid-template-columns: repeat(3, 1fr); }
+      .cond-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .cards-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+      .pages-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *:before, *:after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+<body>
+
+<div class="noise"></div>
+
+<!-- ═══ NAV ═══ -->
+<header class="nav">
+  <a href="https://vini-portfolio-v2.vercel.app" class="nav-logo" aria-label="Vinicius Gayer">
+    <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="nav-logo-img">
+  </a>
+  <div class="nav-status">
+    <span class="nav-status-dot"></span>
+    <span>Proposta comercial</span>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="section section-hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-grid-lines"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Proposta comercial · Outubro 2026</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-title-line">Um site afinado,</span>
+      <span class="hero-title-line accent">e cuidado todo mês.</span>
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Preparado para</span>
+        <span class="hero-meta-value">Marilia Frigo — OneFlow</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Por</span>
+        <span class="hero-meta-value">Vinicius Gayer — Design &amp; Dev</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Data</span>
+        <span class="hero-meta-value">14 · 10 · 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Validade</span>
+        <span class="hero-meta-value">15 dias</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 ENTENDIMENTO ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">01 — Entendimento</span>
+      </div>
+      <h2 class="section-title">O que vamos fazer <span class="handwritten">juntos</span></h2>
+      <p class="section-desc">
+        O site da OneFlow já está no ar no Webflow, com 18 páginas. A proposta segue a
+        Seção 4 do escopo: um projeto fechado para elevar o site de patamar e uma
+        mensalidade para manter tudo saudável, rápido e medido.
+      </p>
+    </div>
+    <div class="cards-grid" data-reveal>
+      <div class="card">
+        <span class="card-number">Bloco 01</span>
+        <h3 class="card-title">Projeto Fechado</h3>
+        <p class="card-desc">Revisão de layout de 7 páginas, criação de 5 páginas novas, QA completo nas 18 páginas e implantação do SEO técnico. Tudo validado em staging antes de publicar.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">Bloco 02</span>
+        <h3 class="card-title">Mensalidade</h3>
+        <p class="card-desc">Manutenção e trocas de conteúdo do dia a dia, acompanhamento contínuo de SEO técnico e velocidade, e relatório mensal com Analytics e Search Console.</p>
+        <span class="card-line"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 PROJETO FECHADO ═══ -->
+<section class="section section-elevated" id="projeto">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">02 — Bloco 01</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag accent">Projeto fechado</span>
+        <span class="tag">12 páginas</span>
+        <span class="tag">QA em 18 páginas</span>
+        <span class="tag">Webflow</span>
+      </div>
+      <h2 class="section-title">Projeto Fechado</h2>
+      <p class="section-desc">
+        Quatro entregas, organizadas em três etapas. Começo pelo que dá ganho rápido
+        (QA e SEO técnico) e sigo para as páginas, sempre no Design System atual do site.
+      </p>
+    </div>
+
+    <h3 class="subheading" data-reveal>Entregas</h3>
+    <div class="cards-grid" data-reveal style="margin-bottom: var(--s-3xl);">
+      <div class="card">
+        <span class="card-number">01</span>
+        <h3 class="card-title">Revisão de layout · 7 páginas</h3>
+        <p class="card-desc">Reestruturação visual, ajuste de blocos e melhoria de UX/UI, alinhadas ao Design System do site. Responsivo em desktop, tablet e mobile, com interações nativas do Webflow.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">02</span>
+        <h3 class="card-title">Páginas novas · 5 páginas</h3>
+        <p class="card-desc">Montagem e diagramação no Webflow a partir dos textos, imagens e mídias do time de Marketing. 100% responsivas e publicadas após aprovação em staging.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">03</span>
+        <h3 class="card-title">QA · 18 páginas</h3>
+        <p class="card-desc">Checklist completo: Chrome, Safari, Edge, iOS e Android; links quebrados e redirecionamentos 301; fluxos de formulário e integração com CRM/e-mail; contraste, alt e hierarquia semântica. Com as correções.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">04</span>
+        <h3 class="card-title">SEO técnico</h3>
+        <p class="card-desc">Aplicação das diretrizes da agência de SEO: Schema.org/JSON-LD, erros do Search Console, sitemap e robots, canonical e Open Graph, H1–H3, meta titles e descriptions, imagens em WebP e limpeza de ativos.</p>
+        <span class="card-line"></span>
+      </div>
+    </div>
+
+    <h3 class="subheading" data-reveal>Etapas</h3>
+    <div class="price-table-wrap" data-reveal style="margin-bottom: var(--s-3xl);">
+      <table class="price-table">
+        <thead>
+          <tr><th>Etapa</th><th>Entrega</th><th>Prazo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>01 · Diagnóstico e base técnica</strong></td><td>QA das 18 páginas + implantação do SEO técnico</td><td>semana 1</td></tr>
+          <tr><td><strong>02 · Revisão de layout</strong></td><td>7 páginas revisadas, aprovadas em staging</td><td>semanas 2–3</td></tr>
+          <tr><td><strong>03 · Páginas novas e publicação</strong></td><td>5 páginas novas + QA final + publicação</td><td>semanas 4–5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="combo" data-reveal>
+      <h3 class="combo-title">Investimento — Projeto Fechado</h3>
+      <div class="combo-price">R$ 7.900</div>
+      <p class="combo-desc">
+        Valor total para as quatro entregas, com prazo de 4 a 5 semanas a partir da
+        liberação dos acessos e do recebimento do conteúdo.
+      </p>
+      <div class="tag-row" style="margin-bottom: 0;">
+        <span class="tag accent">4–5 semanas</span>
+        <span class="tag">3 etapas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 MENSALIDADE ═══ -->
+<section class="section" id="mensalidade">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">03 — Bloco 02</span>
+      </div>
+      <div class="tag-row">
+        <span class="tag accent">Recorrente</span>
+        <span class="tag">10 h/mês</span>
+        <span class="tag">Relatório mensal</span>
+      </div>
+      <h2 class="section-title">Mensalidade</h2>
+      <p class="section-desc">
+        Depois do projeto, o site não para: o Marketing pede, eu atualizo; o Search
+        Console aponta, eu corrijo; e todo mês você recebe os números com o plano de ação.
+      </p>
+    </div>
+
+    <div class="cards-grid cols-3" data-reveal style="margin-bottom: var(--s-3xl);">
+      <div class="card">
+        <span class="card-number">01</span>
+        <h3 class="card-title">Manutenção e suporte</h3>
+        <p class="card-desc">Trocas de texto, imagens e seções, reestruturação pontual de blocos, backups antes de grandes publicações e suporte em DNS, domínio e SSL.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">02</span>
+        <h3 class="card-title">SEO técnico e velocidade</h3>
+        <p class="card-desc">Acompanhamento contínuo do Search Console e do PageSpeed / Core Web Vitals, com correção de erros e otimização de imagens e scripts.</p>
+        <span class="card-line"></span>
+      </div>
+      <div class="card">
+        <span class="card-number">03</span>
+        <h3 class="card-title">Relatório mensal</h3>
+        <p class="card-desc">Tráfego, comportamento, conversão de formulários, erros técnicos e PageSpeed (GA4 + Search Console), com diagnóstico dos gargalos e próximos passos.</p>
+        <span class="card-line"></span>
+      </div>
+    </div>
+
+    <div class="price-table-wrap" data-reveal>
+      <table class="price-table">
+        <thead>
+          <tr><th>Item</th><th>Tempo de resposta</th><th>Investimento</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td><strong>Mensalidade</strong> · até 10 h de suporte por mês</td><td>Até 1 dia útil por chamado</td><td class="price">R$ 1.500/mês</td></tr>
+          <tr><td><strong>Urgência</strong> · site fora do ar ou formulário parado</td><td>No mesmo dia útil</td><td class="price">Incluso</td></tr>
+          <tr><td>Hora excedente</td><td>Combinada por demanda</td><td class="price">R$ 110/h</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="price-note" data-reveal>A mensalidade começa após a entrega do Projeto Fechado. Horas não usadas não acumulam para o mês seguinte.</p>
+  </div>
+</section>
+
+<!-- ═══ 04 PROCESSO ═══ -->
+<section class="section section-elevated">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">04 — Processo</span>
+      </div>
+      <h2 class="section-title">Como funciona</h2>
+    </div>
+    <div class="timeline" data-reveal>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 01</span>
+        <h4 class="timeline-title">Acessos e alinhamento</h4>
+        <p class="timeline-desc">Assinatura do NDA, acesso ao Webflow, GA4, Search Console e DNS, e leitura dos relatórios da agência de SEO. Fechamos a lista das 12 páginas e o calendário de aprovação.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 02</span>
+        <h4 class="timeline-title">Base técnica</h4>
+        <p class="timeline-desc">QA das 18 páginas com relatório de achados e correções, e implantação do SEO técnico. O site já melhora antes do redesign.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 03</span>
+        <h4 class="timeline-title">Páginas em staging</h4>
+        <p class="timeline-desc">Revisão das 7 páginas e criação das 5 novas no ambiente de testes. Você valida, eu ajusto, e só então publicamos no domínio principal, com backup antes.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-week">Etapa 04</span>
+        <h4 class="timeline-title">Publicação e mensalidade</h4>
+        <p class="timeline-desc">QA final, publicação e início da mensalidade, com o primeiro relatório no fechamento do mês seguinte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 CONDIÇÕES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">05 — Condições</span>
+      </div>
+      <h2 class="section-title">O combinado não sai caro</h2>
+    </div>
+    <div class="cond-grid" data-reveal>
+      <div class="cond-col">
+        <h3>Incluso</h3>
+        <ul>
+          <li>12 páginas responsivas no Design System atual</li>
+          <li>Animações e microinterações nativas do Webflow</li>
+          <li>QA completo das 18 páginas, com correções</li>
+          <li>Implantação do SEO técnico</li>
+          <li>2 rodadas de ajuste por página</li>
+          <li>Validação em staging antes de cada publicação</li>
+        </ul>
+      </div>
+      <div class="cond-col excluded">
+        <h3>Não incluso</h3>
+        <ul>
+          <li>Textos, imagens e mídias (time de Marketing)</li>
+          <li>Novo Design System ou identidade visual</li>
+          <li>Planos do Webflow e ferramentas de terceiros</li>
+          <li>Rodadas extras de ajuste (cobradas por hora)</li>
+        </ul>
+      </div>
+      <div class="cond-col">
+        <h3>Pagamento</h3>
+        <ul>
+          <li>Projeto: 40% na assinatura · 30% na entrega da etapa 02 · 30% na publicação</li>
+          <li>Mensalidade faturada todo mês</li>
+          <li>NFS-e emitida por PJ (CNAE 62.01-5-02, web design)</li>
+          <li>Prazos contam da liberação dos acessos e do conteúdo</li>
+          <li>Proposta válida por 15 dias</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="section section-cta">
+  <div class="cta-bg-fade"></div>
+  <div class="container cta-content">
+    <div class="eyebrow" data-reveal>
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Próximo passo</span>
+    </div>
+    <h2 class="cta-title" data-reveal>
+      <span class="cta-title-line">Fez sentido?</span>
+      <span class="cta-title-line accent">Vamos conversar.</span>
+    </h2>
+    <div data-reveal>
+      <a href="mailto:viniciusal60@gmail.com?subject=Proposta%20OneFlow%20-%20Web" class="btn-big">
+        <span>Responder por e-mail</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </a>
+      <div class="cta-social">
+        <a href="https://wa.me/5511968217250" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a>
+        <a href="https://vini-portfolio-v2.vercel.app" class="social-link">Portfólio completo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-copy">&copy; 2026 Vinicius Gayer — Proposta confidencial, preparada para OneFlow.</span>
+    <a href="https://vini-portfolio-v2.vercel.app" class="footer-logo" aria-label="Vinicius Gayer">
+      <img src="/profile/simbolo.svg" alt="Vinicius Gayer" class="footer-logo-img">
+    </a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('revealed'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

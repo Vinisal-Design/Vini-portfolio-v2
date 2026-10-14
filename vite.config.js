@@ -9,6 +9,7 @@ export default defineConfig({
         projeto: resolve(__dirname, 'projeto.html'),
         projetos: resolve(__dirname, 'projetos.html'),
         filosofiaDoMarketing: resolve(__dirname, 'filosofia-do-marketing/index.html'),
+        oneflow: resolve(__dirname, 'oneflow/index.html'),
       },
     },
   },
